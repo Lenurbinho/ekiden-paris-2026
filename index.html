@@ -69,6 +69,11 @@ h3.r{background:var(--red)}
 .chip{font:inherit;font-size:15px;font-weight:700;border:2px solid var(--navy);background:#fff;color:var(--navy);border-radius:20px;padding:6px 12px;min-height:40px;cursor:pointer}
 .chip.on{background:var(--navy);color:#fff}
 .ffa{display:inline-flex;align-items:center;gap:6px;margin-top:8px;background:var(--navy);color:#fff;text-decoration:none;font-family:Montserrat,sans-serif;font-weight:800;font-size:13px;text-transform:uppercase;border-radius:8px;padding:9px 12px;min-height:40px}
+.st{font-size:15px;margin-top:5px;line-height:1.35}
+.st i{display:block;font-style:normal;font-family:Montserrat,sans-serif;font-weight:800;font-size:12px;text-transform:uppercase;color:#56657a}
+.dfl{display:grid;grid-template-columns:96px 1fr;gap:6px}
+.dfl .ev{font-weight:700;color:var(--navy)}
+.ffa.sm{min-height:34px;padding:6px 10px;font-size:12px;margin-top:6px}
 .ffa.prob{background:#fff;color:var(--navy);border:2px solid var(--navy)}
 .rp{background:#fff;border:1px solid #d5dee6;border-radius:12px;padding:12px 14px;margin:10px 0}
 .rp-h{display:flex;gap:12px;align-items:baseline;background:none;border:0;padding:0;text-align:left;font:inherit;color:inherit;cursor:pointer;width:100%}
@@ -366,7 +371,7 @@ body.off .offline{display:block}
 <script>
 (function(){
 'use strict';
-var DATA=null, REP={c:{},e:{},s:[]}, TEAMS={}, IDX=[];
+var FFA={},FFAS=[],DATA=null, REP={c:{},e:{},s:[]}, TEAMS={}, IDX=[];
 var CAT={GP:'Grand public',EC:'Entreprise classique',EP:'Entreprise privilège',FFA:'Club FFA'};
 var TYP={H:'Hommes',F:'Femmes',X:'Mixte'};
 var DIST=['5 km','10 km','5 km','10 km','5 km','7,195 km'];
@@ -391,7 +396,8 @@ function show(v){if(v!==CUR)remember();CUR=v;document.querySelectorAll('.view').
 document.querySelectorAll('.tabs button').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.v)})});
 
 // ---- data
-Promise.all([fetch('data/startlist.json').then(function(r){return r.json()}),fetch('data/reperes.json').then(function(r){return r.json()})]).then(function(a){
+Promise.all([fetch('data/startlist.json').then(function(r){return r.json()}),fetch('data/reperes.json').then(function(r){return r.json()}),fetch('data/ffa.json').then(function(r){return r.ok?r.json():{}}).catch(function(){return {}})]).then(function(a){
+  FFA=(a[2]&&a[2].a)||{};FFAS=(a[2]&&a[2].remplacants)||[];
   DATA=a[0];
   (a[1].coureurs||[]).forEach(function(x){REP.c[String(x.dossard).trim()]=x});
   (a[1].equipes||[]).forEach(function(x){REP.e[String(x.dossard).trim()]=x});REP.s=a[1].remplacants||[];
@@ -404,12 +410,13 @@ Promise.all([fetch('data/startlist.json').then(function(r){return r.json()}),fet
 function parseBib(v){var m=String(v).trim().replace(',', '.').match(/^(\d+)(?:[.\s\-\/]+(\d))?$/);return m?{d:+m[1],o:m[2]?+m[2]:0}:null}
 function repHtml(key){var h='',r=REP.c[key],p=PERSO[key];
   if(r){var v=/V[ÉE]RIFIER|HOMONYME/i.test(r.titre);h+='<div class="rep'+(v?' ver':'')+'"><b>'+(v?'⚠ ':'★ ')+esc(r.titre)+'</b>'+esc(r.texte)+(r.ffa?'<br>'+ffaLink(r,v):'')+'</div>'}
+  var f=FFA[key];if(f){if(hasPal(f)||f.df&&r)h+='<div class="rep"><b>★ '+(hasPal(f)?'Palmarès FFA':'Stats FFA')+'</b>'+statsHtml(f)+((!r||!r.ffa)&&f.u?ffaLink(f,false):'')+'</div>';else if(!r||!r.ffa)h+='<div style="grid-column:2">'+ffaLink(f,false).replace('class="ffa','class="ffa sm')+'</div>'}
   if(p){h+='<div class="rep perso"><b>✎ '+esc(p.t||'Ma note')+'</b>'+esc(p.x)+'</div>'}
   return h}
 function renderTeam(t,o){
   var e=REP.e[String(t.d)], pe=PERSO[String(t.d)];
   var h='<div class="card"><div class="team-h"><div class="team-n">'+t.d+'</div><div><div class="team-name">'+esc(t.e)+'</div><div class="badges"><span class="bdg '+t.c+'">'+CAT[t.c]+'</span><span class="bdg">'+TYP[t.t]+'</span>';
-  var nrep=t.r.filter(function(r,i){return REP.c[t.d+'.'+(i+1)]}).length; if(nrep)h+='<span class="bdg star">★ '+nrep+' repéré'+(nrep>1?'s':'')+'</span>';
+  var nrep=t.r.filter(function(r,i){return REP.c[t.d+'.'+(i+1)]||hasPal(FFA[t.d+'.'+(i+1)])}).length; if(nrep)h+='<span class="bdg star">★ '+nrep+' repéré'+(nrep>1?'s':'')+'</span>';
   h+='</div></div></div>';
   if(e)h+='<div class="note"><b>'+esc(e.titre)+'</b>'+esc(e.texte)+'</div>';
   if(pe)h+='<div class="note"><b>✎ '+esc(pe.t||'Ma note équipe')+'</b>'+esc(pe.x)+'</div>';
@@ -436,24 +443,35 @@ $('#bibgo').addEventListener('click',function(){lookup();$('#bib').blur()});
 $('#bibres').addEventListener('click',function(e){var g=e.target.closest('[data-go]');if(g&&g.dataset.go){remember();$('#bib').value=g.dataset.go;lookup();window.scrollTo(0,0)}});
 function openBib(v){if(CUR==='dossard')remember();show('dossard');$('#bib').value=v;lookup();$('#bib').blur()}
 
-function ffaLink(r,v){return '<a class="ffa'+(v?' prob':'')+'" href="https://www.athle.fr/athletes/'+encodeURIComponent(r.ffa)+'/biographies" target="_blank" rel="noopener">Fiche FFA'+(v?' (probable)':'')+' ↗</a>'}
+function nk(s){return norm(s).split(/\s+/).sort().join(' ')}
+function hasPal(f){return !!(f&&(f.int||f.nat||f.rec))}
+function statsHtml(f){var h='';if(!f)return h;
+  if(f.int)h+='<div class="st"><i>International</i> '+esc(f.int)+'</div>';
+  if(f.nat)h+='<div class="st"><i>National</i> '+esc(f.nat)+'</div>';
+  if(f.rec)h+='<div class="st"><i>Records</i> '+esc(f.rec)+'</div>';
+  if(f.df)h+='<div class="st"><i>Demi-fond · SB / PB</i>'+f.df.split(' · ').map(function(x){var m=x.match(/^(.*?) (\S+ \/ .*)$/);return m?'<span class="dfl"><span class="ev">'+esc(m[1].replace('semi-marathon','semi'))+'</span><span>'+esc(m[2])+'</span></span>':esc(x)}).join('')+'</div>';
+  return h}
+function ffaHref(r){return r.u||('https://www.athle.fr/athletes/'+encodeURIComponent(r.ffa)+'/biographies')}
+function ffaLink(r,v){return '<a class="ffa'+(v?' prob':'')+'" href="'+esc(ffaHref(r))+'" target="_blank" rel="noopener">Fiche FFA'+(v?' (probable)':'')+' ↗</a>'}
 
 // ---- repérés : une seule liste dans l'ordre des dossards, équipe puis coureurs
 function renderRep(){
   if(!DATA)return;var by={};
-  function slot(d){d=String(d);return by[d]=by[d]||{c:[],s:[]}}
+  function slot(d){d=String(d);return by[d]=by[d]||{c:{},s:[]}}
   Object.keys(REP.e).forEach(function(k){slot(k)});
-  Object.keys(REP.c).forEach(function(k){var p=parseBib(k);if(p)slot(p.d).c.push(REP.c[k])});
-  REP.s.forEach(function(r){slot(r.equipe).s.push(r)});
+  Object.keys(REP.c).forEach(function(k){var p=parseBib(k);if(p&&p.o)slot(p.d).c[k]=1});
+  Object.keys(FFA).forEach(function(k){var p=parseBib(k);if(p&&p.o&&hasPal(FFA[k]))slot(p.d).c[k]=1});
+  REP.s.forEach(function(r){slot(r.equipe).s.push({r:r,f:FFAS.filter(function(x){return String(x.equipe)===String(r.equipe)&&nk(x.nom)===nk(r.nom)})[0]})});
+  FFAS.forEach(function(x){if(!hasPal(x))return;var sl=slot(x.equipe);if(!sl.s.some(function(y){return y.f===x}))sl.s.push({r:null,f:x})});
   var q=norm(($('#rpq')||{}).value||'').trim(),h='',n=0;
   Object.keys(by).sort(function(a,b){return a-b}).forEach(function(d){
     var t=TEAMS[d];if(!t)return;var e=REP.e[d],x=by[d];
     var inner='',hay=t.e+' '+(e?e.titre+' '+e.texte:'');
-    x.c.sort(function(a,b){return parseBib(a.dossard).o-parseBib(b.dossard).o}).forEach(function(r){var p=parseBib(r.dossard),rr=t.r[p.o-1],v=/V[ÉE]RIFIER|HOMONYME/i.test(r.titre);
-      hay+=' '+rr[0]+' '+rr[1]+' '+r.titre+' '+r.texte;
-      inner+='<div class="rp-i'+(v?' ver':'')+'"><button class="rp-h" data-b="'+esc(r.dossard)+'"><span class="rp-d s">'+esc(r.dossard)+'</span><span><div class="rp-n">'+esc(cap(rr[0])+' '+rr[1])+'</div><div class="rp-s">R'+p.o+' · '+DIST[p.o-1]+(rr[3]?' · '+rr[3]+' ans':'')+'</div></span></button><div class="rp-t">'+(v?'⚠ ':'★ ')+esc(r.titre)+'</div><div class="rp-x">'+esc(r.texte)+'</div>'+(r.ffa?ffaLink(r,v):'')+'</div>'});
-    x.s.forEach(function(r){hay+=' '+r.nom+' '+r.texte;
-      inner+='<div class="rp-i"><button class="rp-h" data-b="'+d+'"><span class="rp-d s">R</span><span><div class="rp-n">'+esc(r.nom)+'</div><div class="rp-s">Remplaçant sans dossard'+(r.age?' · '+r.age+' ans':'')+'</div></span></button><div class="rp-t">★ '+esc(r.titre)+'</div><div class="rp-x">'+esc(r.texte)+'</div>'+(r.ffa?ffaLink(r,false):'')+'</div>'});
+    Object.keys(x.c).sort(function(a,b){return parseBib(a).o-parseBib(b).o}).forEach(function(k){var p=parseBib(k),rr=t.r[p.o-1],r=REP.c[k],f=FFA[k],v=r&&/V[ÉE]RIFIER|HOMONYME/i.test(r.titre);
+      hay+=' '+rr[0]+' '+rr[1]+(r?' '+r.titre+' '+r.texte:'')+(f?' '+(f.int||'')+' '+(f.nat||''):'');
+      inner+='<div class="rp-i'+(v?' ver':'')+'"><button class="rp-h" data-b="'+k+'"><span class="rp-d s">'+k+'</span><span><div class="rp-n">'+esc(cap(rr[0])+' '+rr[1])+'</div><div class="rp-s">R'+p.o+' · '+DIST[p.o-1]+(rr[3]?' · '+rr[3]+' ans':'')+'</div></span></button>'+(r?'<div class="rp-t">'+(v?'⚠ ':'★ ')+esc(r.titre)+'</div><div class="rp-x">'+esc(r.texte)+'</div>':'')+statsHtml(f)+(r&&r.ffa?ffaLink(r,v):f&&f.u?ffaLink(f,false):'')+'</div>'});
+    x.s.forEach(function(o){var r=o.r,f=o.f,nom=r?r.nom:f.nom;hay+=' '+nom+(r?' '+r.texte:'');
+      inner+='<div class="rp-i"><button class="rp-h" data-b="'+d+'"><span class="rp-d s">R</span><span><div class="rp-n">'+esc(nom)+'</div><div class="rp-s">Remplaçant sans dossard'+(r&&r.age?' · '+r.age+' ans':'')+'</div></span></button>'+(r?'<div class="rp-t">★ '+esc(r.titre)+'</div><div class="rp-x">'+esc(r.texte)+'</div>':'')+statsHtml(f)+(r&&r.ffa?ffaLink(r,false):f&&f.u?ffaLink(f,false):'')+'</div>'});
     if(q&&norm(hay).indexOf(q)<0)return;n++;
     h+='<div class="rp"><button class="rp-h" data-b="'+d+'"><span class="rp-d">'+d+'</span><span><div class="rp-n">'+esc(t.e)+'</div><div class="rp-s">'+CAT[t.c]+' · '+TYP[t.t]+'</div></span></button>'+(e?'<div class="rp-t">'+esc(e.titre)+'</div><div class="rp-x">'+esc(e.texte)+'</div>':'')+inner+'</div>'});
   $('#rplist').innerHTML='<div class="small muted" style="margin:6px 0">'+n+' équipes</div>'+(h||'<div class="empty">Aucun résultat.</div>')}
@@ -467,12 +485,12 @@ function item(t,i,sub){var k=i>=0?t.d+'.'+(i+1):String(t.d);var r=i>=0?t.r[i]:nu
   return '<button class="it" data-b="'+k+'"><span class="d">'+k+'</span><span class="t">'+(r?esc(cap(r[0])+' '+r[1]):esc(t.e))+'</span><span class="s">'+(r?esc(t.e)+' · R'+(i+1)+' '+DIST[i]:CAT[t.c]+' · '+TYP[t.t])+(sub?' · '+esc(sub):'')+'</span></button>'}
 function search(){
   if(!DATA)return;var q=norm($('#q').value).trim(),o=$('#qres'),h='';
-  if(filt==='rep'){Object.keys(REP.c).concat(Object.keys(PERSO).filter(function(k){return k.indexOf('.')>0&&!REP.c[k]})).sort(function(a,b){return parseFloat(a)-parseFloat(b)||a.localeCompare(b)}).forEach(function(k){var p=parseBib(k),t=p&&TEAMS[p.d];if(!t)return;var r=REP.c[k]||{titre:(PERSO[k]||{}).t||'Ma note'};if(q&&norm(r.titre+' '+t.r[p.o-1].join(' ')+' '+t.e).indexOf(q)<0)return;h+=item(t,p.o-1,r.titre)});o.innerHTML=h||'<div class="empty">Aucun.</div>';return}
+  if(filt==='rep'){Object.keys(REP.c).concat(Object.keys(FFA).filter(function(k){return hasPal(FFA[k])&&!REP.c[k]}),Object.keys(PERSO).filter(function(k){return k.indexOf('.')>0&&!REP.c[k]})).sort(function(a,b){return parseFloat(a)-parseFloat(b)||a.localeCompare(b)}).forEach(function(k){var p=parseBib(k),t=p&&TEAMS[p.d];if(!t)return;var r=REP.c[k]||(hasPal(FFA[k])?{titre:'Palmarès FFA',texte:''}:null)||{titre:(PERSO[k]||{}).t||'Ma note'};if(q&&norm(r.titre+' '+t.r[p.o-1].join(' ')+' '+t.e).indexOf(q)<0)return;h+=item(t,p.o-1,r.titre)});o.innerHTML=h||'<div class="empty">Aucun.</div>';return}
   if(filt==='eq'){Object.keys(REP.e).sort(function(a,b){return a-b}).forEach(function(k){var t=TEAMS[k];if(t&&(!q||norm(t.e+REP.e[k].titre).indexOf(q)>=0))h+=item(t,-1,REP.e[k].titre)});o.innerHTML=h;return}
   if(filt==='sd'){DATA.sansDossard.forEach(function(x){if(q&&norm(x[1]+' '+x[2]+' '+x[5]).indexOf(q)<0)return;h+='<div class="it"><span class="t">'+esc(cap(x[1])+' '+x[2])+'</span><span class="s">Sans dossard · équipe '+(x[0]||'?')+' · '+esc(x[5])+'</span></div>'});o.innerHTML=h||'<div class="empty">Aucun.</div>';return}
   if(q.length<2){o.innerHTML='<div class="empty">Tape au moins 2 lettres, ou choisis un filtre.</div>';return}
   var words=q.split(/\s+/),n=0;
-  for(var j=0;j<IDX.length&&n<80;j++){var x=IDX[j];if(words.every(function(w){return x.k.indexOf(w)>=0})){h+=item(x.t,x.i,REP.c[x.t.d+'.'+(x.i+1)]?'★':'');n++}}
+  for(var j=0;j<IDX.length&&n<80;j++){var x=IDX[j];if(words.every(function(w){return x.k.indexOf(w)>=0})){h+=item(x.t,x.i,(REP.c[x.t.d+'.'+(x.i+1)]||hasPal(FFA[x.t.d+'.'+(x.i+1)]))?'★':'');n++}}
   o.innerHTML=h||'<div class="empty">Aucun résultat.</div>';
 }
 $('#q').addEventListener('input',function(){clearTimeout(this._t);this._t=setTimeout(search,200)});
