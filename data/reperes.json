@@ -90,6 +90,12 @@
    "ffa": "62663"
   },
   {
+   "dossard": "109.4",
+   "groupe": "verifier",
+   "titre": "À VÉRIFIER · journaliste du Canard enchaîné",
+   "texte": "Même nom et même âge que Didier Hassoux, journaliste d'investigation au Canard enchaîné et coauteur de six livres politiques (Sarkozy et l'argent roi, L'Espion du président…). À confirmer."
+  },
+  {
    "dossard": "123.4",
    "groupe": "officiels",
    "titre": "Élu de Paris · écologiste",
@@ -117,11 +123,23 @@
    "ffa": "3022449"
   },
   {
+   "dossard": "316.5",
+   "groupe": "verifier",
+   "titre": "À VÉRIFIER · international de badminton",
+   "texte": "Même nom et même âge que Jordan Corvée (né en 1995 à Alençon), spécialiste du double en équipe de France depuis 2016, vice-champion d'Europe par équipes en 2016. Son frère Lucas est aussi international. À confirmer."
+  },
+  {
    "dossard": "459.5",
    "titre": "À VÉRIFIER · ultra",
    "texte": "Inscrite « Louise Marie ». Peut-être Louise-Marie Thévenin-Lebran, championne du monde par équipes du 100 km (Bangalore 2024), même âge. Nom de famille absent : à confirmer avant d'annoncer.",
    "groupe": "verifier",
    "ffa": "1676765"
+  },
+  {
+   "dossard": "604.4",
+   "groupe": "verifier",
+   "titre": "À VÉRIFIER · internationale de rugby",
+   "texte": "Même nom et même âge que Doriane Constanty (née en 1992), joueuse de rugby internationale française. L'équipe Team CP09 évoque l'Ariège. À confirmer."
   },
   {
    "dossard": "1384.1",
@@ -157,6 +175,18 @@
    "texte": "4 sélections A, 5 jeunes. Champion d'Europe en salle du 4×400 m (Madrid 2005). Équipe de l'Agence française de lutte contre le dopage.",
    "groupe": "athle",
    "ffa": "166691"
+  },
+  {
+   "dossard": "1449.2",
+   "groupe": "autres",
+   "titre": "Ancien cycliste professionnel",
+   "texte": "Né en 2001 à Rouen. Coureur de Cofidis de 2022 à 2025, 83e du Giro 2023, 5e du Tour de l'Avenir 2021, vainqueur de la Course de la Paix juniors 2019 et 2e de Paris-Roubaix juniors. Retraité à cause d'un problème d'artère iliaque, il travaille désormais à l'Agence française de lutte contre le dopage, d'où l'équipe AFLD."
+  },
+  {
+   "dossard": "1520.2",
+   "groupe": "verifier",
+   "titre": "À VÉRIFIER · réalisateur",
+   "texte": "Même nom et même âge que François Desagnat (né en 1973), réalisateur de La Beuze, Les 11 commandements, 15 ans et demi, Adopte un veuf, Le Jeu de la vérité et Zaï Zaï Zaï Zaï. Frère de l'acteur Vincent Desagnat. À confirmer."
   },
   {
    "dossard": "1581.3",
@@ -254,6 +284,12 @@
    "titre": "Triathlète",
    "texte": "A une fiche à la Fédération internationale de triathlon. Niveau exact à confirmer.",
    "groupe": "autres"
+  },
+  {
+   "dossard": "1811.5",
+   "groupe": "verifier",
+   "titre": "À VÉRIFIER · ancienne internationale de football",
+   "texte": "Même nom et même âge que Candice Prévost (née en 1983 à Évreux), milieu offensif du PSG de 2003 à 2012 (128 matchs, 27 buts), 4 sélections en équipe de France. Elle court pour l'équipe MAIF UNSS : à confirmer avant d'annoncer."
   },
   {
    "dossard": "1813.4",
