@@ -90,6 +90,12 @@
    "ffa": "62663"
   },
   {
+   "dossard": "123.4",
+   "groupe": "officiels",
+   "titre": "Élu de Paris · écologiste",
+   "texte": "Né en 1969. Adjoint à la maire de Paris chargé de la végétalisation, des parcs et jardins, de la biodiversité et de la condition animale depuis 2020, élu du 13e arrondissement (groupe Paris en commun). Auparavant adjoint chargé des transports et de l'espace public. Fonction à vérifier depuis les municipales de mars 2026."
+  },
+  {
    "dossard": "159.3",
    "titre": "International jeune · 800 m",
    "texte": "1 sélection jeune : match juniors en salle 2013.",
@@ -256,6 +262,12 @@
    "groupe": "officiels"
   },
   {
+   "dossard": "1817.1",
+   "groupe": "autres",
+   "titre": "Influenceur · sprint et climat",
+   "texte": "Sprinteur classé dans le top 20 français du 100 m en 2025, ancien judoka de haut niveau, ingénieur dans la décarbonation des hôpitaux. Créateur de contenu (environ 140 000 abonnés, Instagram @younes.nezar) et cofondateur des Climatosportifs. Profil mis en avant par le Bureau de la jeunesse de l'ONU."
+  },
+  {
    "dossard": "1817.5",
    "titre": "Internationale · sprint",
    "texte": "1 sélection A, 5 jeunes. 100, 200 m, 4×100 m. Jeux méditerranéens 2026. Demi-finaliste du 200 m aux Mondiaux juniors 2024.",
@@ -357,6 +369,11 @@
    "texte": "À battre : 2h02'37 (Runners' Lab, Tongres 2022), qui est aussi le record d'Europe."
   },
   {
+   "dossard": "123",
+   "titre": "SAM 13 · avec un élu parisien",
+   "texte": "Christophe Najdovski au R4."
+  },
+  {
    "dossard": "159",
    "titre": "SCO Sainte-Marguerite Marseille",
    "texte": "Louis Gilavert, olympien du steeple, au R4. Nicolas Navarro (2 fois olympique au marathon) est inscrit, mais seulement comme remplaçant sans dossard : vérifier s'il court et à quel relais."
@@ -382,16 +399,6 @@
    "texte": "Équipe A (aussi B : 1607, C : 1608)."
   },
   {
-   "dossard": "1607",
-   "titre": "France Télévisions",
-   "texte": "Équipe B."
-  },
-  {
-   "dossard": "1608",
-   "titre": "France Télévisions",
-   "texte": "Équipe C."
-  },
-  {
    "dossard": "1384",
    "titre": "ELITE ATHLETES",
    "texte": "Martin Casse (3'39 au 1 500 m) et Thomas Cattin Masson (3'43). Peut viser le haut du classement entreprises."
@@ -407,6 +414,16 @@
    "texte": "Avec Hicham Errbibih, vice-champion d'Europe cadets du steeple."
   },
   {
+   "dossard": "1607",
+   "titre": "France Télévisions",
+   "texte": "Équipe B."
+  },
+  {
+   "dossard": "1608",
+   "titre": "France Télévisions",
+   "texte": "Équipe C."
+  },
+  {
    "dossard": "1609",
    "titre": "Police nationale 2",
    "texte": "Paoletti (canoë-kayak, olympienne) au R1, Barouh (champion du monde de canoë descente) au R2, Rochat (vice-champion du monde de pentathlon moderne 2025) au R3, Rayet (aviron, olympien 2024) au R4, Tetuan (le policier du compte Instagram de la Police nationale) au R5, Peron (aviron, vice-championne du monde) au R6."
@@ -415,6 +432,11 @@
    "dossard": "1613",
    "titre": "Police nationale 1",
    "texte": "Bourgoin (recordwoman de France du 800 m) au R1, Weber (coureur régional, 29'49 au 10 km) au R2, Cornelis (aviron, vice-championne du monde) au R3, Cascales (coureur, 14'49 au 5 km) au R4, Celerier (triathlète) au R5, Périault (bronze olympique en triathlon) au R6."
+  },
+  {
+   "dossard": "1629",
+   "titre": "Climatosportifs",
+   "texte": "Collectif de sportifs engagés pour le climat, cofondé par Younès Nezar (équipe 1817). Deuxième équipe : 1645."
   },
   {
    "dossard": "1660",
@@ -444,7 +466,7 @@
   {
    "dossard": "1817",
    "titre": "Influenceurs MAIF",
-   "texte": "Pseudos et comptes à demander à la MAIF. Avec Shana Lambourde, sprinteuse internationale."
+   "texte": "Équipe d'influenceurs MAIF. Younès Nezar (R1), sprinteur et créateur de contenu (environ 140 000 abonnés), cofondateur des Climatosportifs. Faustine Porchet (R2) et Ilan Driad (R3) sont licenciés en athlétisme (Porchet : 1'02\"02 au 400 m haies). Shana Lambourde (R5), sprinteuse internationale. Comptes d'Elliot Draper (R4) et Mathieu Payet (R6) à demander à la MAIF."
   },
   {
    "dossard": "2015",
