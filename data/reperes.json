@@ -192,9 +192,9 @@
   },
   {
    "dossard": "1609.5",
-   "groupe": "verifier",
-   "titre": "À VÉRIFIER · discipline inconnue",
-   "texte": "Aucune trace publique trouvée pour Maxime Tetuan (27 ans). L'orthographe est peut-être erronée dans la startlist. À demander à l'équipe."
+   "groupe": "autres",
+   "titre": "La voix de la Police nationale sur Instagram",
+   "texte": "Le policier qui représente la Police nationale sur son compte Instagram."
   },
   {
    "dossard": "1609.6",
@@ -211,9 +211,10 @@
   },
   {
    "dossard": "1613.2",
-   "groupe": "verifier",
-   "titre": "À VÉRIFIER · discipline inconnue",
-   "texte": "Aucune trace publique trouvée pour ce Nicolas Weber (35 ans), ni en athlétisme ni dans les autres sports. L'homonyme footballeur n'a pas le bon âge. À demander à l'équipe."
+   "groupe": "athle",
+   "titre": "Coureur régional · demi-fond et route",
+   "texte": "Entente Athlétisme 94 / AC Paris-Joinville, né en 1991. Records : 1'55\"20 au 800 m (2012), 3'53\"00 au 1 500 m (2014), 8'33\"68 au 3 000 m (2023), 29'49 au 10 km (2020), 1h10'58 au semi (2022), 2h26'44 au marathon (2024). En 2026 : 15'06 au 5 000 m et 31'38 au 10 km.",
+   "ffa": "181972"
   },
   {
    "dossard": "1613.3",
@@ -408,12 +409,12 @@
   {
    "dossard": "1609",
    "titre": "Police nationale 2",
-   "texte": "Paoletti (canoë-kayak, olympienne) au R1, Barouh (champion du monde de canoë descente) au R2, Rochat (vice-champion du monde de pentathlon moderne 2025) au R3, Rayet (aviron, olympien 2024) au R4, Tetuan (profil à demander) au R5, Peron (aviron, vice-championne du monde) au R6."
+   "texte": "Paoletti (canoë-kayak, olympienne) au R1, Barouh (champion du monde de canoë descente) au R2, Rochat (vice-champion du monde de pentathlon moderne 2025) au R3, Rayet (aviron, olympien 2024) au R4, Tetuan (le policier du compte Instagram de la Police nationale) au R5, Peron (aviron, vice-championne du monde) au R6."
   },
   {
    "dossard": "1613",
    "titre": "Police nationale 1",
-   "texte": "Bourgoin (recordwoman de France du 800 m) au R1, Weber (profil à demander) au R2, Cornelis (aviron, vice-championne du monde) au R3, Cascales (coureur, 14'49 au 5 km) au R4, Celerier (triathlète) au R5, Périault (bronze olympique en triathlon) au R6."
+   "texte": "Bourgoin (recordwoman de France du 800 m) au R1, Weber (coureur régional, 29'49 au 10 km) au R2, Cornelis (aviron, vice-championne du monde) au R3, Cascales (coureur, 14'49 au 5 km) au R4, Celerier (triathlète) au R5, Périault (bronze olympique en triathlon) au R6."
   },
   {
    "dossard": "1660",
