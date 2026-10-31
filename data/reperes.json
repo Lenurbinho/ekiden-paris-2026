@@ -1,5 +1,5 @@
 {
- "_mode_emploi": "Pour ajouter un coureur : copier un bloc entre accolades dans 'coureurs', changer le dossard (numéro d'équipe.point.relais, ex 310.2), le titre et le texte. Pour une équipe : bloc dans 'equipes' avec le seul numéro d'équipe. Ne pas oublier la virgule entre deux blocs. Champs facultatifs : 'groupe' (athle, autres, belges, officiels, verifier) range le coureur dans l'onglet Repérés ; 'ffa' = numéro de la fiche athle.fr (le nombre dans l'adresse www.athle.fr/athletes/NUMÉRO/...).",
+ "_mode_emploi": "Pour ajouter un coureur : copier un bloc entre accolades dans 'coureurs', changer le dossard (numéro d'équipe.point.relais, ex 310.2), le titre et le texte. Pour une équipe : bloc dans 'equipes' avec le seul numéro d'équipe. Ne pas oublier la virgule entre deux blocs. Champs facultatifs : 'groupe' (athle, autres, belges, officiels, verifier) range le coureur dans l'onglet Repérés ; 'ffa' = numéro de la fiche athle.fr (le nombre dans l'adresse www.athle.fr/athletes/NUMÉRO/...). 'remplacants' : coureurs inscrits sans dossard (champ 'equipe' = numéro d'équipe).",
  "coureurs": [
   {
    "dossard": "1.1",
@@ -320,7 +320,7 @@
   {
    "dossard": "159",
    "titre": "SCO Sainte-Marguerite Marseille",
-   "texte": "Louis Gilavert, olympien du steeple, au R4. Nicolas Navarro, annoncé par la presse, ne figure pas dans la startlist."
+   "texte": "Louis Gilavert, olympien du steeple, au R4. Nicolas Navarro (2 fois olympique au marathon) est inscrit, mais seulement comme remplaçant sans dossard : vérifier s'il court et à quel relais."
   },
   {
    "dossard": "579",
@@ -431,6 +431,17 @@
    "dossard": "2072",
    "titre": "RMC BFM",
    "texte": "Partenaire média de l'épreuve."
+  }
+ ],
+ "remplacants": [
+  {
+   "equipe": "159",
+   "nom": "Nicolas NAVARRO",
+   "age": 35,
+   "groupe": "athle",
+   "ffa": "1086844",
+   "titre": "International · marathon (remplaçant, sans dossard)",
+   "texte": "5 sélections A. JO : 12e du marathon à Tokyo 2021 (2h12'50) et 16e à Paris 2024 (2h09'56). 5e des Europe de marathon 2022 (2h10'41). Mondiaux du semi 2020. Champion de France d'ekiden 2023 et du semi M0 2025. 28'44 au 10 km en 2026. Inscrit sans dossard dans l'équipe 159 : à confirmer sur place."
   }
  ]
 }

@@ -358,7 +358,7 @@ body.off .offline{display:block}
 <script>
 (function(){
 'use strict';
-var DATA=null, REP={c:{},e:{}}, TEAMS={}, IDX=[];
+var DATA=null, REP={c:{},e:{},s:[]}, TEAMS={}, IDX=[];
 var CAT={GP:'Grand public',EC:'Entreprise classique',EP:'Entreprise privilège',FFA:'Club FFA'};
 var TYP={H:'Hommes',F:'Femmes',X:'Mixte'};
 var DIST=['5 km','10 km','5 km','10 km','5 km','7,195 km'];
@@ -377,7 +377,7 @@ document.querySelectorAll('.tabs button').forEach(function(b){b.addEventListener
 Promise.all([fetch('data/startlist.json').then(function(r){return r.json()}),fetch('data/reperes.json').then(function(r){return r.json()})]).then(function(a){
   DATA=a[0];
   (a[1].coureurs||[]).forEach(function(x){REP.c[String(x.dossard).trim()]=x});
-  (a[1].equipes||[]).forEach(function(x){REP.e[String(x.dossard).trim()]=x});
+  (a[1].equipes||[]).forEach(function(x){REP.e[String(x.dossard).trim()]=x});REP.s=a[1].remplacants||[];
   DATA.teams.forEach(function(t){TEAMS[t.d]=t;t.r.forEach(function(r,i){IDX.push({k:norm(r[0]+' '+r[1]+' '+r[1]+' '+r[0]),t:t,i:i})});IDX.push({k:norm(t.e),t:t,i:-1})});
   renderRep();$('#maj').textContent=DATA.maj+' · '+DATA.teams.length+' équipes';
   var h=location.hash.replace('#','');if(/^\d/.test(h)){$('#bib').value=h;lookup()}
@@ -396,6 +396,7 @@ function renderTeam(t,o){
   h+='</div></div></div>';
   if(e)h+='<div class="note"><b>'+esc(e.titre)+'</b>'+esc(e.texte)+'</div>';
   if(pe)h+='<div class="note"><b>✎ '+esc(pe.t||'Ma note équipe')+'</b>'+esc(pe.x)+'</div>';
+  REP.s.filter(function(r){return String(r.equipe)===String(t.d)}).forEach(function(r){h+='<div class="rep" style="margin-top:8px"><b>★ Remplaçant · '+esc(r.nom)+'</b>'+esc(r.titre)+'. '+esc(r.texte)+(r.ffa?'<br>'+ffaLink(r,false):'')+'</div>'});
   h+='<div style="margin-top:6px">';
   t.r.forEach(function(r,i){var k=t.d+'.'+(i+1);
     h+='<div class="runner'+(i===5?' last':'')+(o===i+1?' hl':'')+'" id="r'+(i+1)+'"><div class="o">R'+(i+1)+'<small>'+DIST[i]+'</small></div><div><div class="rn">'+esc(cap(r[0]))+' <span class="nm">'+esc(r[1])+'</span></div><div class="rmeta">'+(r[2]==='F'?'Femme':'Homme')+(r[3]?' · '+r[3]+' ans':'')+' · '+k+'</div></div>'+repHtml(k)+'<button class="addn" data-k="'+k+'" data-n="'+esc(cap(r[0])+' '+r[1])+'">'+(PERSO[k]?'modifier ma note':'+ note')+'</button></div>'});
@@ -426,9 +427,11 @@ function renderRep(){
   if(!DATA)return;var h='',list=Object.keys(REP.c).map(function(k){return REP.c[k]});
   if(gsel!=='eq'){Object.keys(GRP).forEach(function(g){
     if(gsel&&gsel!==g)return;
-    var L=list.filter(function(r){return (r.groupe||'athle')===g}).sort(function(a,b){return parseFloat(a.dossard)-parseFloat(b.dossard)});if(!L.length)return;
+    var L=list.concat(REP.s.map(function(r){return Object.assign({dossard:String(r.equipe),remp:1},r)})).filter(function(r){return (r.groupe||'athle')===g}).sort(function(a,b){return parseFloat(a.dossard)-parseFloat(b.dossard)});if(!L.length)return;
     h+='<div class="gh">'+GRP[g]+' · '+L.length+'</div>';
-    L.forEach(function(r){var p=parseBib(r.dossard),t=p&&TEAMS[p.d];if(!t)return;var x=t.r[p.o-1],v=g==='verifier';
+    L.forEach(function(r){var p=parseBib(r.dossard),t=p&&TEAMS[p.d];if(!t)return;var v=g==='verifier';
+      if(r.remp){h+='<div class="rp"><button class="rp-h" data-b="'+esc(r.dossard)+'"><span class="rp-d">'+esc(r.dossard)+'</span><span><div class="rp-n">'+esc(r.nom)+'</div><div class="rp-s">'+esc(t.e)+' · remplaçant sans dossard'+(r.age?' · '+r.age+' ans':'')+'</div></span></button><div class="rp-t">★ '+esc(r.titre)+'</div><div class="rp-x">'+esc(r.texte)+'</div>'+(r.ffa?ffaLink(r,false):'')+'</div>';return}
+      var x=t.r[p.o-1];
       h+='<div class="rp'+(v?' ver':'')+'"><button class="rp-h" data-b="'+esc(r.dossard)+'"><span class="rp-d">'+esc(r.dossard)+'</span><span><div class="rp-n">'+esc(cap(x[0])+' '+x[1])+'</div><div class="rp-s">'+esc(t.e)+' · R'+p.o+' '+DIST[p.o-1]+(x[3]?' · '+x[3]+' ans':'')+'</div></span></button><div class="rp-t">'+(v?'⚠ ':'★ ')+esc(r.titre)+'</div><div class="rp-x">'+esc(r.texte)+'</div>'+(r.ffa?ffaLink(r,v):'')+'</div>'})})}
   if(!gsel||gsel==='eq'){var E=Object.keys(REP.e).sort(function(a,b){return a-b});h+='<div class="gh">Équipes à signaler · '+E.length+'</div>';
     E.forEach(function(k){var t=TEAMS[k],e=REP.e[k];if(!t)return;h+='<div class="rp"><button class="rp-h" data-b="'+k+'"><span class="rp-d">'+k+'</span><span><div class="rp-n">'+esc(t.e)+'</div><div class="rp-s">'+CAT[t.c]+' · '+TYP[t.t]+'</div></span></button><div class="rp-t">'+esc(e.titre)+'</div><div class="rp-x">'+esc(e.texte)+'</div></div>'})}
