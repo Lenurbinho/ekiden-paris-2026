@@ -71,7 +71,7 @@ h3.r{background:var(--red)}
 .ffa{display:inline-flex;align-items:center;gap:6px;margin-top:8px;background:var(--navy);color:#fff;text-decoration:none;font-family:Montserrat,sans-serif;font-weight:800;font-size:13px;text-transform:uppercase;border-radius:8px;padding:9px 12px;min-height:40px}
 .st{font-size:15px;margin-top:5px;line-height:1.35}
 .st i{display:block;font-style:normal;font-family:Montserrat,sans-serif;font-weight:800;font-size:12px;text-transform:uppercase;color:#56657a}
-.dfl{display:grid;grid-template-columns:96px 1fr;gap:6px}
+.dfl{display:grid;grid-template-columns:88px 1fr;gap:6px}
 .dfl .ev{font-weight:700;color:var(--navy)}
 .ffa.sm{min-height:34px;padding:6px 10px;font-size:12px;margin-top:6px}
 .ffa.prob{background:#fff;color:var(--navy);border:2px solid var(--navy)}
@@ -410,7 +410,7 @@ Promise.all([fetch('data/startlist.json').then(function(r){return r.json()}),fet
 function parseBib(v){var m=String(v).trim().replace(',', '.').match(/^(\d+)(?:[.\s\-\/]+(\d))?$/);return m?{d:+m[1],o:m[2]?+m[2]:0}:null}
 function repHtml(key){var h='',r=REP.c[key],p=PERSO[key];
   if(r){var v=/V[ÉE]RIFIER|HOMONYME/i.test(r.titre);h+='<div class="rep'+(v?' ver':'')+'"><b>'+(v?'⚠ ':'★ ')+esc(r.titre)+'</b>'+esc(r.texte)+(r.ffa?'<br>'+ffaLink(r,v):'')+'</div>'}
-  var f=FFA[key];if(f){if(hasPal(f)||f.df&&r)h+='<div class="rep"><b>★ '+(hasPal(f)?'Palmarès FFA':'Stats FFA')+'</b>'+statsHtml(f)+((!r||!r.ffa)&&f.u?ffaLink(f,false):'')+'</div>';else if(!r||!r.ffa)h+='<div style="grid-column:2">'+ffaLink(f,false).replace('class="ffa','class="ffa sm')+'</div>'}
+  var f=FFA[key];if(f){if(hasPal(f)||f.df||f.pbx)h+='<div class="rep"><b>★ '+(hasPal(f)?'Palmarès FFA':'Stats FFA')+'</b>'+statsHtml(f)+((!r||!r.ffa)&&f.u?ffaLink(f,false):'')+'</div>';else if(!r||!r.ffa)h+='<div style="grid-column:2">'+ffaLink(f,false).replace('class="ffa','class="ffa sm')+'</div>'}
   if(p){h+='<div class="rep perso"><b>✎ '+esc(p.t||'Ma note')+'</b>'+esc(p.x)+'</div>'}
   return h}
 function renderTeam(t,o){
@@ -449,10 +449,11 @@ function statsHtml(f){var h='';if(!f)return h;
   if(f.int)h+='<div class="st"><i>International</i> '+esc(f.int)+'</div>';
   if(f.nat)h+='<div class="st"><i>National</i> '+esc(f.nat)+'</div>';
   if(f.rec)h+='<div class="st"><i>Records</i> '+esc(f.rec)+'</div>';
-  if(f.df)h+='<div class="st"><i>Demi-fond · SB / PB</i>'+f.df.split(' · ').map(function(x){var m=x.match(/^(.*?) (\S+ \/ .*)$/);return m?'<span class="dfl"><span class="ev">'+esc(m[1].replace('semi-marathon','semi'))+'</span><span>'+esc(m[2])+'</span></span>':esc(x)}).join('')+'</div>';
+  if(f.df)h+='<div class="st"><i>Demi-fond · SB / PB</i>'+f.df.split(' · ').map(function(x){var m=x.split('\t');m=m.length>1?[x,m[0],m[1]]:null;return m?'<span class="dfl"><span class="ev">'+esc(m[1].replace('semi-marathon','semi'))+'</span><span>'+esc(m[2])+'</span></span>':esc(x)}).join('')+'</div>';
+  if(f.pbx)h+='<div class="st"><i>Records (hors demi-fond)</i> '+esc(f.pbx)+'</div>';
   return h}
 function ffaHref(r){return r.u||('https://www.athle.fr/athletes/'+encodeURIComponent(r.ffa)+'/biographies')}
-function ffaLink(r,v){return '<a class="ffa'+(v?' prob':'')+'" href="'+esc(ffaHref(r))+'" target="_blank" rel="noopener">Fiche FFA'+(v?' (probable)':'')+' ↗</a>'}
+function ffaLink(r,v){return '<a class="ffa'+(v?' prob':'')+'" href="'+esc(ffaHref(r))+'" target="_blank" rel="noopener">Fiche '+(/worldathletics/.test(ffaHref(r))?'WA':'FFA')+(v?' (probable)':'')+' ↗</a>'}
 
 // ---- repérés : une seule liste dans l'ordre des dossards, équipe puis coureurs
 function renderRep(){
