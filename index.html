@@ -77,7 +77,10 @@ h3.r{background:var(--red)}
 .rp-s{color:#56657a;font-size:14px;margin-top:2px}
 .rp-t{color:var(--blue);font-weight:800;font-size:14px;text-transform:uppercase;margin-top:8px}
 .rp-x{font-size:16px;margin-top:3px}
-.rp.ver{border-left:5px solid var(--red)}
+.rp-i{border-top:1px solid #e3e9ee;margin-top:12px;padding-top:10px;padding-left:10px;border-left:4px solid var(--blue)}
+.rp-i.ver{border-left-color:var(--red)}
+.rp-d.s{font-size:19px;min-width:62px}
+.q1{width:100%;font:inherit;font-size:18px;padding:12px 14px;border:2px solid var(--navy);border-radius:12px;margin:8px 0}
 .gh{font-family:Montserrat,sans-serif;font-weight:900;color:var(--navy);text-transform:uppercase;font-size:17px;margin:22px 0 4px;border-bottom:3px solid var(--red);padding-bottom:4px}
 /* dossier */
 details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:0 0 10px;overflow:hidden}
@@ -148,8 +151,8 @@ body.off .offline{display:block}
 <!-- ===== DOSSIER ===== -->
 <section class="view" id="v-reperes">
 <h2>Athlètes repérés</h2>
-<p class="small muted">Tous les profils de l'analyse de la startlist. Touche le dossard pour ouvrir l'équipe.</p>
-<div class="chips" id="rpchips"><button class="chip on" data-g="">Tous</button><button class="chip" data-g="athle">Internationaux athlé</button><button class="chip" data-g="autres">Autres sports</button><button class="chip" data-g="belges">Belges</button><button class="chip" data-g="officiels">Officiels & sponsors</button><button class="chip" data-g="eq">Équipes</button><button class="chip" data-g="verifier">À vérifier</button></div>
+<p class="small muted">Équipes et athlètes repérés, dans l'ordre des dossards. Touche un dossard pour ouvrir l'équipe.</p>
+<input id="rpq" class="q1" type="search" placeholder="Filtrer : nom, équipe, sport…" autocomplete="off">
 <div id="rplist"></div>
 </section>
 <section class="view" id="v-dossier">
@@ -421,23 +424,27 @@ function openBib(v){show('dossard');$('#bib').value=v;lookup();$('#bib').blur()}
 
 function ffaLink(r,v){return '<a class="ffa'+(v?' prob':'')+'" href="https://www.athle.fr/athletes/'+encodeURIComponent(r.ffa)+'/biographies" target="_blank" rel="noopener">Fiche FFA'+(v?' (probable)':'')+' ↗</a>'}
 
-// ---- repérés
-var GRP={athle:'Internationaux athlétisme',autres:'Internationaux d\'autres sports',belges:'Belges (USBW)',officiels:'Officiels, FFA & sponsors',verifier:'À vérifier sur place'},gsel='';
+// ---- repérés : une seule liste dans l'ordre des dossards, équipe puis coureurs
 function renderRep(){
-  if(!DATA)return;var h='',list=Object.keys(REP.c).map(function(k){return REP.c[k]});
-  if(gsel!=='eq'){Object.keys(GRP).forEach(function(g){
-    if(gsel&&gsel!==g)return;
-    var L=list.concat(REP.s.map(function(r){return Object.assign({dossard:String(r.equipe),remp:1},r)})).filter(function(r){return (r.groupe||'athle')===g}).sort(function(a,b){return parseFloat(a.dossard)-parseFloat(b.dossard)});if(!L.length)return;
-    h+='<div class="gh">'+GRP[g]+' · '+L.length+'</div>';
-    L.forEach(function(r){var p=parseBib(r.dossard),t=p&&TEAMS[p.d];if(!t)return;var v=g==='verifier';
-      if(r.remp){h+='<div class="rp"><button class="rp-h" data-b="'+esc(r.dossard)+'"><span class="rp-d">'+esc(r.dossard)+'</span><span><div class="rp-n">'+esc(r.nom)+'</div><div class="rp-s">'+esc(t.e)+' · remplaçant sans dossard'+(r.age?' · '+r.age+' ans':'')+'</div></span></button><div class="rp-t">★ '+esc(r.titre)+'</div><div class="rp-x">'+esc(r.texte)+'</div>'+(r.ffa?ffaLink(r,false):'')+'</div>';return}
-      var x=t.r[p.o-1];
-      h+='<div class="rp'+(v?' ver':'')+'"><button class="rp-h" data-b="'+esc(r.dossard)+'"><span class="rp-d">'+esc(r.dossard)+'</span><span><div class="rp-n">'+esc(cap(x[0])+' '+x[1])+'</div><div class="rp-s">'+esc(t.e)+' · R'+p.o+' '+DIST[p.o-1]+(x[3]?' · '+x[3]+' ans':'')+'</div></span></button><div class="rp-t">'+(v?'⚠ ':'★ ')+esc(r.titre)+'</div><div class="rp-x">'+esc(r.texte)+'</div>'+(r.ffa?ffaLink(r,v):'')+'</div>'})})}
-  if(!gsel||gsel==='eq'){var E=Object.keys(REP.e).sort(function(a,b){return a-b});h+='<div class="gh">Équipes à signaler · '+E.length+'</div>';
-    E.forEach(function(k){var t=TEAMS[k],e=REP.e[k];if(!t)return;h+='<div class="rp"><button class="rp-h" data-b="'+k+'"><span class="rp-d">'+k+'</span><span><div class="rp-n">'+esc(t.e)+'</div><div class="rp-s">'+CAT[t.c]+' · '+TYP[t.t]+'</div></span></button><div class="rp-t">'+esc(e.titre)+'</div><div class="rp-x">'+esc(e.texte)+'</div></div>'})}
-  $('#rplist').innerHTML=h}
-document.querySelectorAll('#rpchips .chip').forEach(function(c){c.addEventListener('click',function(){gsel=c.dataset.g;document.querySelectorAll('#rpchips .chip').forEach(function(x){x.classList.toggle('on',x===c)});renderRep()})});
+  if(!DATA)return;var by={};
+  function slot(d){d=String(d);return by[d]=by[d]||{c:[],s:[]}}
+  Object.keys(REP.e).forEach(function(k){slot(k)});
+  Object.keys(REP.c).forEach(function(k){var p=parseBib(k);if(p)slot(p.d).c.push(REP.c[k])});
+  REP.s.forEach(function(r){slot(r.equipe).s.push(r)});
+  var q=norm(($('#rpq')||{}).value||'').trim(),h='',n=0;
+  Object.keys(by).sort(function(a,b){return a-b}).forEach(function(d){
+    var t=TEAMS[d];if(!t)return;var e=REP.e[d],x=by[d];
+    var inner='',hay=t.e+' '+(e?e.titre+' '+e.texte:'');
+    x.c.sort(function(a,b){return parseBib(a.dossard).o-parseBib(b.dossard).o}).forEach(function(r){var p=parseBib(r.dossard),rr=t.r[p.o-1],v=/V[ÉE]RIFIER|HOMONYME/i.test(r.titre);
+      hay+=' '+rr[0]+' '+rr[1]+' '+r.titre+' '+r.texte;
+      inner+='<div class="rp-i'+(v?' ver':'')+'"><button class="rp-h" data-b="'+esc(r.dossard)+'"><span class="rp-d s">'+esc(r.dossard)+'</span><span><div class="rp-n">'+esc(cap(rr[0])+' '+rr[1])+'</div><div class="rp-s">R'+p.o+' · '+DIST[p.o-1]+(rr[3]?' · '+rr[3]+' ans':'')+'</div></span></button><div class="rp-t">'+(v?'⚠ ':'★ ')+esc(r.titre)+'</div><div class="rp-x">'+esc(r.texte)+'</div>'+(r.ffa?ffaLink(r,v):'')+'</div>'});
+    x.s.forEach(function(r){hay+=' '+r.nom+' '+r.texte;
+      inner+='<div class="rp-i"><button class="rp-h" data-b="'+d+'"><span class="rp-d s">R</span><span><div class="rp-n">'+esc(r.nom)+'</div><div class="rp-s">Remplaçant sans dossard'+(r.age?' · '+r.age+' ans':'')+'</div></span></button><div class="rp-t">★ '+esc(r.titre)+'</div><div class="rp-x">'+esc(r.texte)+'</div>'+(r.ffa?ffaLink(r,false):'')+'</div>'});
+    if(q&&norm(hay).indexOf(q)<0)return;n++;
+    h+='<div class="rp"><button class="rp-h" data-b="'+d+'"><span class="rp-d">'+d+'</span><span><div class="rp-n">'+esc(t.e)+'</div><div class="rp-s">'+CAT[t.c]+' · '+TYP[t.t]+'</div></span></button>'+(e?'<div class="rp-t">'+esc(e.titre)+'</div><div class="rp-x">'+esc(e.texte)+'</div>':'')+inner+'</div>'});
+  $('#rplist').innerHTML='<div class="small muted" style="margin:6px 0">'+n+' équipes</div>'+(h||'<div class="empty">Aucun résultat.</div>')}
 $('#rplist').addEventListener('click',function(e){var b=e.target.closest('[data-b]');if(b)openBib(b.dataset.b)});
+$('#rpq').addEventListener('input',function(){clearTimeout(this._t);this._t=setTimeout(renderRep,200)});
 
 // ---- recherche
 var filt='';

@@ -179,6 +179,24 @@
    "groupe": "autres"
   },
   {
+   "dossard": "1609.3",
+   "groupe": "autres",
+   "titre": "International · pentathlon moderne",
+   "texte": "Vice-champion du monde en individuel 2025 (Kaunas), derrière l'Égyptien Moutaz Mohamed, et champion du monde par équipes avec Ugo Fleurot et Léo Bories. Champion du monde du relais seniors (Alexandrie) et du relais juniors. Policier réserviste, entré dans l'équipe Police nationale en avril 2026."
+  },
+  {
+   "dossard": "1609.4",
+   "groupe": "autres",
+   "titre": "International · aviron",
+   "texte": "Olympien à Paris 2024 : 8e en quatre sans barreur avec Benoît Brunet et les frères Guillaume et Thibaud Turlan. Bronze aux championnats d'Europe du quatre sans barreur en 2023 et 2024. Aux derniers Mondiaux : vainqueur de la finale B du quatre sans barreur et 4e en huit mixte. Né en 1999."
+  },
+  {
+   "dossard": "1609.5",
+   "groupe": "verifier",
+   "titre": "À VÉRIFIER · discipline inconnue",
+   "texte": "Aucune trace publique trouvée pour Maxime Tetuan (27 ans). L'orthographe est peut-être erronée dans la startlist. À demander à l'équipe."
+  },
+  {
    "dossard": "1609.6",
    "titre": "Internationale · aviron",
    "texte": "Vice-championne du monde du deux sans barreur avec Emma Cornelis (dossard 1613.3).",
@@ -192,10 +210,30 @@
    "ffa": "1299980"
   },
   {
+   "dossard": "1613.2",
+   "groupe": "verifier",
+   "titre": "À VÉRIFIER · discipline inconnue",
+   "texte": "Aucune trace publique trouvée pour ce Nicolas Weber (35 ans), ni en athlétisme ni dans les autres sports. L'homonyme footballeur n'a pas le bon âge. À demander à l'équipe."
+  },
+  {
    "dossard": "1613.3",
    "titre": "Internationale · aviron",
    "texte": "Vice-championne du monde du deux sans barreur avec Hezekia Peron (dossard 1609.6).",
    "groupe": "autres"
+  },
+  {
+   "dossard": "1613.4",
+   "groupe": "athle",
+   "ffa": "1353345",
+   "titre": "Coureur · route et demi-fond",
+   "texte": "US Camon (Somme), entraîné par Stéphane Elophe. En 2026 : 14'49 au 5 km route, 15'05 au 5 000 m, 8'24 au 3 000 m, 31'24 au 10 km et 1h08'30 aux 20 km. Aucune sélection en équipe de France en athlétisme : sport de haut niveau d'origine à confirmer."
+  },
+  {
+   "dossard": "1613.5",
+   "groupe": "autres",
+   "ffa": "1181809",
+   "titre": "Triathlète",
+   "texte": "Né en 1992. Vice-champion d'Europe des clubs en relais mixte 2023 (La Baule). Coupe d'Europe élite à Liévin en 2022, Coupe d'Europe juniors en 2011. Aussi crossman : 28'45 sur le cross long élite le 1er février 2026."
   },
   {
    "dossard": "1613.6",
@@ -370,12 +408,12 @@
   {
    "dossard": "1609",
    "titre": "Police nationale 2",
-   "texte": "Canoë, kayak, aviron : Paoletti, Barouh, Peron. Rochat, Rayet, Tetuan : disciplines à confirmer."
+   "texte": "Paoletti (canoë-kayak, olympienne) au R1, Barouh (champion du monde de canoë descente) au R2, Rochat (vice-champion du monde de pentathlon moderne 2025) au R3, Rayet (aviron, olympien 2024) au R4, Tetuan (profil à demander) au R5, Peron (aviron, vice-championne du monde) au R6."
   },
   {
    "dossard": "1613",
    "titre": "Police nationale 1",
-   "texte": "Anaïs Bourgoin (record de France du 800 m) au R1, Léonie Périault au R6, Emma Cornelis (aviron) au R3. Weber, Cascales, Celerier : disciplines à confirmer."
+   "texte": "Bourgoin (recordwoman de France du 800 m) au R1, Weber (profil à demander) au R2, Cornelis (aviron, vice-championne du monde) au R3, Cascales (coureur, 14'49 au 5 km) au R4, Celerier (triathlète) au R5, Périault (bronze olympique en triathlon) au R6."
   },
   {
    "dossard": "1660",
