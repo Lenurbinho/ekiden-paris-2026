@@ -68,6 +68,17 @@ h3.r{background:var(--red)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
 .chip{font:inherit;font-size:15px;font-weight:700;border:2px solid var(--navy);background:#fff;color:var(--navy);border-radius:20px;padding:6px 12px;min-height:40px;cursor:pointer}
 .chip.on{background:var(--navy);color:#fff}
+.ffa{display:inline-flex;align-items:center;gap:6px;margin-top:8px;background:var(--navy);color:#fff;text-decoration:none;font-family:Montserrat,sans-serif;font-weight:800;font-size:13px;text-transform:uppercase;border-radius:8px;padding:9px 12px;min-height:40px}
+.ffa.prob{background:#fff;color:var(--navy);border:2px solid var(--navy)}
+.rp{background:#fff;border:1px solid #d5dee6;border-radius:12px;padding:12px 14px;margin:10px 0}
+.rp-h{display:flex;gap:12px;align-items:baseline;background:none;border:0;padding:0;text-align:left;font:inherit;color:inherit;cursor:pointer;width:100%}
+.rp-d{font-family:Montserrat,sans-serif;font-weight:900;color:var(--red);font-size:24px;white-space:nowrap}
+.rp-n{font-weight:800;font-size:19px;line-height:1.15}
+.rp-s{color:#56657a;font-size:14px;margin-top:2px}
+.rp-t{color:var(--blue);font-weight:800;font-size:14px;text-transform:uppercase;margin-top:8px}
+.rp-x{font-size:16px;margin-top:3px}
+.rp.ver{border-left:5px solid var(--red)}
+.gh{font-family:Montserrat,sans-serif;font-weight:900;color:var(--navy);text-transform:uppercase;font-size:17px;margin:22px 0 4px;border-bottom:3px solid var(--red);padding-bottom:4px}
 /* dossier */
 details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:0 0 10px;overflow:hidden}
 summary{list-style:none;cursor:pointer;padding:14px;font-family:Montserrat,sans-serif;font-weight:900;font-size:16px;text-transform:uppercase;color:var(--navy);display:flex;justify-content:space-between;align-items:center;min-height:52px}
@@ -97,8 +108,8 @@ img.full{width:100%;height:auto;border-radius:8px;display:block}
 .msg p{margin:6px 0}
 .fs-btn{float:right;font-size:13px}
 /* tabbar */
-.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--navy);display:grid;grid-template-columns:repeat(5,1fr);padding-bottom:env(safe-area-inset-bottom)}
-.tabs button{background:none;border:0;color:#b8c6dd;font-family:Montserrat,sans-serif;font-weight:800;font-size:11px;text-transform:uppercase;padding:8px 2px 9px;min-height:64px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--navy);display:grid;grid-template-columns:repeat(6,1fr);padding-bottom:env(safe-area-inset-bottom)}
+.tabs button{background:none;border:0;color:#b8c6dd;font-family:Montserrat,sans-serif;font-weight:800;font-size:10px;letter-spacing:-.01em;text-transform:uppercase;padding:8px 1px 9px;min-height:64px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
 .tabs button svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .tabs button.on{color:#fff;box-shadow:inset 0 4px 0 var(--red)}
 .empty{text-align:center;color:var(--muted);padding:20px 10px}
@@ -135,6 +146,12 @@ body.off .offline{display:block}
 </section>
 
 <!-- ===== DOSSIER ===== -->
+<section class="view" id="v-reperes">
+<h2>Athlètes repérés</h2>
+<p class="small muted">Tous les profils de l'analyse de la startlist. Touche le dossard pour ouvrir l'équipe.</p>
+<div class="chips" id="rpchips"><button class="chip on" data-g="">Tous</button><button class="chip" data-g="athle">Internationaux athlé</button><button class="chip" data-g="autres">Autres sports</button><button class="chip" data-g="belges">Belges</button><button class="chip" data-g="officiels">Officiels & sponsors</button><button class="chip" data-g="eq">Équipes</button><button class="chip" data-g="verifier">À vérifier</button></div>
+<div id="rplist"></div>
+</section>
 <section class="view" id="v-dossier">
 <h2>Le dossier</h2>
 
@@ -325,6 +342,7 @@ body.off .offline{display:block}
 <nav class="tabs" aria-label="Navigation">
 <button data-v="dossard" class="on"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 10h4M7 14h10"/></svg>Dossard</button>
 <button data-v="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Recherche</button>
+<button data-v="reperes"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Repérés</button>
 <button data-v="dossier"><svg viewBox="0 0 24 24"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h8"/></svg>Dossier</button>
 <button data-v="micro"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Micro</button>
 <button data-v="live"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>Live</button>
@@ -361,14 +379,14 @@ Promise.all([fetch('data/startlist.json').then(function(r){return r.json()}),fet
   (a[1].coureurs||[]).forEach(function(x){REP.c[String(x.dossard).trim()]=x});
   (a[1].equipes||[]).forEach(function(x){REP.e[String(x.dossard).trim()]=x});
   DATA.teams.forEach(function(t){TEAMS[t.d]=t;t.r.forEach(function(r,i){IDX.push({k:norm(r[0]+' '+r[1]+' '+r[1]+' '+r[0]),t:t,i:i})});IDX.push({k:norm(t.e),t:t,i:-1})});
-  $('#maj').textContent=DATA.maj+' · '+DATA.teams.length+' équipes';
+  renderRep();$('#maj').textContent=DATA.maj+' · '+DATA.teams.length+' équipes';
   var h=location.hash.replace('#','');if(/^\d/.test(h)){$('#bib').value=h;lookup()}
 }).catch(function(err){console.error(err);$('#bibres').innerHTML='<div class="empty">Impossible de charger les données. Vérifie la connexion puis recharge la page.</div>'});
 
 // ---- dossard
 function parseBib(v){var m=String(v).trim().replace(',', '.').match(/^(\d+)(?:[.\s\-\/]+(\d))?$/);return m?{d:+m[1],o:m[2]?+m[2]:0}:null}
 function repHtml(key){var h='',r=REP.c[key],p=PERSO[key];
-  if(r){var v=/V[ÉE]RIFIER|HOMONYME/i.test(r.titre);h+='<div class="rep'+(v?' ver':'')+'"><b>'+(v?'⚠ ':'★ ')+esc(r.titre)+'</b>'+esc(r.texte)+'</div>'}
+  if(r){var v=/V[ÉE]RIFIER|HOMONYME/i.test(r.titre);h+='<div class="rep'+(v?' ver':'')+'"><b>'+(v?'⚠ ':'★ ')+esc(r.titre)+'</b>'+esc(r.texte)+(r.ffa?'<br>'+ffaLink(r,v):'')+'</div>'}
   if(p){h+='<div class="rep perso"><b>✎ '+esc(p.t||'Ma note')+'</b>'+esc(p.x)+'</div>'}
   return h}
 function renderTeam(t,o){
@@ -400,6 +418,24 @@ $('#bibgo').addEventListener('click',function(){lookup();$('#bib').blur()});
 $('#bibres').addEventListener('click',function(e){var g=e.target.closest('[data-go]');if(g&&g.dataset.go){$('#bib').value=g.dataset.go;lookup();window.scrollTo(0,0)}});
 function openBib(v){show('dossard');$('#bib').value=v;lookup();$('#bib').blur()}
 
+function ffaLink(r,v){return '<a class="ffa'+(v?' prob':'')+'" href="https://www.athle.fr/athletes/'+encodeURIComponent(r.ffa)+'/biographies" target="_blank" rel="noopener">Fiche FFA'+(v?' (probable)':'')+' ↗</a>'}
+
+// ---- repérés
+var GRP={athle:'Internationaux athlétisme',autres:'Internationaux d\'autres sports',belges:'Belges (USBW)',officiels:'Officiels, FFA & sponsors',verifier:'À vérifier sur place'},gsel='';
+function renderRep(){
+  if(!DATA)return;var h='',list=Object.keys(REP.c).map(function(k){return REP.c[k]});
+  if(gsel!=='eq'){Object.keys(GRP).forEach(function(g){
+    if(gsel&&gsel!==g)return;
+    var L=list.filter(function(r){return (r.groupe||'athle')===g}).sort(function(a,b){return parseFloat(a.dossard)-parseFloat(b.dossard)});if(!L.length)return;
+    h+='<div class="gh">'+GRP[g]+' · '+L.length+'</div>';
+    L.forEach(function(r){var p=parseBib(r.dossard),t=p&&TEAMS[p.d];if(!t)return;var x=t.r[p.o-1],v=g==='verifier';
+      h+='<div class="rp'+(v?' ver':'')+'"><button class="rp-h" data-b="'+esc(r.dossard)+'"><span class="rp-d">'+esc(r.dossard)+'</span><span><div class="rp-n">'+esc(cap(x[0])+' '+x[1])+'</div><div class="rp-s">'+esc(t.e)+' · R'+p.o+' '+DIST[p.o-1]+(x[3]?' · '+x[3]+' ans':'')+'</div></span></button><div class="rp-t">'+(v?'⚠ ':'★ ')+esc(r.titre)+'</div><div class="rp-x">'+esc(r.texte)+'</div>'+(r.ffa?ffaLink(r,v):'')+'</div>'})})}
+  if(!gsel||gsel==='eq'){var E=Object.keys(REP.e).sort(function(a,b){return a-b});h+='<div class="gh">Équipes à signaler · '+E.length+'</div>';
+    E.forEach(function(k){var t=TEAMS[k],e=REP.e[k];if(!t)return;h+='<div class="rp"><button class="rp-h" data-b="'+k+'"><span class="rp-d">'+k+'</span><span><div class="rp-n">'+esc(t.e)+'</div><div class="rp-s">'+CAT[t.c]+' · '+TYP[t.t]+'</div></span></button><div class="rp-t">'+esc(e.titre)+'</div><div class="rp-x">'+esc(e.texte)+'</div></div>'})}
+  $('#rplist').innerHTML=h}
+document.querySelectorAll('#rpchips .chip').forEach(function(c){c.addEventListener('click',function(){gsel=c.dataset.g;document.querySelectorAll('#rpchips .chip').forEach(function(x){x.classList.toggle('on',x===c)});renderRep()})});
+$('#rplist').addEventListener('click',function(e){var b=e.target.closest('[data-b]');if(b)openBib(b.dataset.b)});
+
 // ---- recherche
 var filt='';
 function item(t,i,sub){var k=i>=0?t.d+'.'+(i+1):String(t.d);var r=i>=0?t.r[i]:null;
@@ -415,7 +451,7 @@ function search(){
   o.innerHTML=h||'<div class="empty">Aucun résultat.</div>';
 }
 $('#q').addEventListener('input',function(){clearTimeout(this._t);this._t=setTimeout(search,200)});
-document.querySelectorAll('.chip').forEach(function(c){c.addEventListener('click',function(){filt=filt===c.dataset.f?'':c.dataset.f;document.querySelectorAll('.chip').forEach(function(x){x.classList.toggle('on',x.dataset.f===filt)});search()})});
+document.querySelectorAll('#v-search .chip').forEach(function(c){c.addEventListener('click',function(){filt=filt===c.dataset.f?'':c.dataset.f;document.querySelectorAll('#v-search .chip').forEach(function(x){x.classList.toggle('on',x.dataset.f===filt)});search()})});
 $('#qres').addEventListener('click',function(e){var b=e.target.closest('[data-b]');if(b)openBib(b.dataset.b)});
 
 // ---- notes perso
