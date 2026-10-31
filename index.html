@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#001d46">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ekiden Speaker">
+<title>Ekiden Paris 2026 · Speaker</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap">
+<style>
+:root{--navy:#001d46;--blue:#12407f;--red:#e3001b;--mint:#d8f0ec;--bg:#f2f6f5;--card:#fff;--ink:#14213d;--muted:#4c566a;--line:#d5e0e3;--pale:#e8f1f3}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:Barlow,'Helvetica Neue',Arial,sans-serif;font-size:17px;line-height:1.4;padding-bottom:calc(76px + env(safe-area-inset-bottom));-webkit-tap-highlight-color:transparent}
+.top{background:var(--mint);text-align:center;padding-top:env(safe-area-inset-top)}
+.top img{display:block;width:100%;max-width:760px;margin:0 auto;height:auto}
+.slogan{background:var(--navy);color:#fff;font-family:Montserrat,sans-serif;font-weight:900;font-size:13px;letter-spacing:.04em;text-transform:uppercase;padding:7px 10px;text-align:center}
+.slogan b{color:#ff4d5b}
+main{max-width:760px;margin:0 auto;padding:14px 14px 20px}
+.view{display:none}.view.on{display:block}
+h2{font-family:Montserrat,sans-serif;font-weight:900;font-size:20px;text-transform:uppercase;color:var(--navy);margin:6px 0 10px}
+h3{font-family:Montserrat,sans-serif;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:#fff;background:var(--navy);display:inline-block;padding:5px 10px;border-radius:2px;margin:14px 0 8px}
+h3.r{background:var(--red)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:0 0 10px}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+/* recherche dossard */
+.bigin{display:flex;gap:8px}
+.bigin input{flex:1;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:44px;text-align:center;padding:6px 8px;border:3px solid var(--navy);border-radius:10px;background:#fff;color:var(--navy);min-width:0}
+.bigin input:focus{outline:none;border-color:var(--red)}
+.btn{font-family:Montserrat,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;border:0;border-radius:10px;padding:12px 14px;background:var(--navy);color:#fff;min-height:48px;cursor:pointer}
+.btn.r{background:var(--red)}.btn.l{background:var(--pale);color:var(--navy)}
+.hint{font-size:14px;color:var(--muted);margin:6px 2px 10px}
+.team-h{display:flex;align-items:flex-start;gap:12px}
+.team-n{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:48px;line-height:.9;color:var(--red)}
+.team-name{font-family:Montserrat,sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:var(--navy);text-transform:uppercase;word-break:break-word}
+.badges{margin-top:6px;display:flex;flex-wrap:wrap;gap:5px}
+.bdg{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;border-radius:4px;padding:3px 7px;background:var(--pale);color:var(--navy)}
+.bdg.FFA{background:#6a2c9a;color:#fff}.bdg.EC,.bdg.EP{background:#1e7a4a;color:#fff}.bdg.GP{background:#1b6fb0;color:#fff}.bdg.star{background:var(--red);color:#fff}
+.note{background:#fff4d6;border-left:5px solid #f0b400;border-radius:6px;padding:9px 11px;margin:10px 0 2px;font-size:16px}
+.note b{display:block;font-family:Montserrat,sans-serif;font-size:13px;text-transform:uppercase;color:#7a5600;margin-bottom:2px}
+.runner{display:grid;grid-template-columns:54px 1fr;gap:4px 10px;padding:11px 0;border-top:1px solid var(--line)}
+.runner:first-of-type{border-top:0}
+.runner .o{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;line-height:1;color:var(--navy);text-align:center;background:var(--pale);border-radius:8px;padding:6px 0}
+.runner .o small{display:block;font-family:Barlow,sans-serif;font-size:12px;font-weight:700;color:var(--muted);margin-top:2px}
+.runner.last .o{background:var(--red);color:#fff}.runner.last .o small{color:#ffe1e3}
+.runner.hl{background:#fff1f2;border-radius:10px;padding:11px 8px;margin:0 -8px;border-top-color:transparent;outline:3px solid var(--red)}
+.rn{font-size:21px;font-weight:700;line-height:1.15}
+.rn .nm{text-transform:uppercase}
+.rmeta{font-size:15px;color:var(--muted)}
+.rep{grid-column:2;background:#eaf3ff;border-left:5px solid var(--blue);border-radius:6px;padding:8px 10px;font-size:16px}
+.rep b{display:block;color:var(--blue);font-size:14px;text-transform:uppercase;letter-spacing:.02em}
+.rep.ver{background:#fff1f2;border-left-color:var(--red)}.rep.ver b{color:var(--red)}
+.rep.perso{background:#fff8e1;border-left-color:#f0b400}.rep.perso b{color:#7a5600}
+.addn{grid-column:2;justify-self:start;font-size:14px;font-weight:700;color:var(--blue);background:none;border:0;padding:4px 0;cursor:pointer;text-decoration:underline}
+.nav2{display:flex;gap:8px;margin-top:10px}.nav2 .btn{flex:1}
+/* liste résultats */
+.list .it{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:0 0 8px;font:inherit;color:inherit;cursor:pointer}
+.it .d{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:var(--red);margin-right:6px}
+.it .t{font-weight:700}
+.it .s{display:block;font-size:14px;color:var(--muted)}
+.txt{width:100%;font:inherit;font-size:19px;padding:12px 14px;border:3px solid var(--navy);border-radius:10px;background:#fff;color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chip{font:inherit;font-size:15px;font-weight:700;border:2px solid var(--navy);background:#fff;color:var(--navy);border-radius:20px;padding:6px 12px;min-height:40px;cursor:pointer}
+.chip.on{background:var(--navy);color:#fff}
+/* dossier */
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:0 0 10px;overflow:hidden}
+summary{list-style:none;cursor:pointer;padding:14px;font-family:Montserrat,sans-serif;font-weight:900;font-size:16px;text-transform:uppercase;color:var(--navy);display:flex;justify-content:space-between;align-items:center;min-height:52px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:'+';font-size:24px;color:var(--red)}
+details[open] summary::after{content:'–'}
+details[open] summary{border-bottom:1px solid var(--line)}
+.dc{padding:12px 14px}
+.kv{display:grid;grid-template-columns:78px 1fr;gap:6px 10px;font-size:16px}
+.kv b{font-family:'Barlow Condensed',sans-serif;font-size:19px;color:var(--navy)}
+.big{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:30px;color:var(--red);line-height:1}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tile{background:var(--pale);border-radius:8px;padding:9px 10px}
+.tile .big{color:var(--navy)}
+.legs{display:flex;gap:3px;margin:8px 0}
+.legs div{border-radius:4px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:15px;padding:6px 3px;text-align:center;background:var(--navy);line-height:1.05}
+.legs div.c{background:#cfe3ec;color:var(--navy)}.legs div.f{background:var(--red)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td,th{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:12px;text-transform:uppercase;color:var(--muted)}
+td.ch{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:19px;color:var(--red);white-space:nowrap}
+ul.l{padding-left:20px;margin:6px 0}ul.l li{margin:4px 0}
+img.full{width:100%;height:auto;border-radius:8px;display:block}
+/* micro */
+.msg{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--red);border-radius:10px;padding:12px 14px;margin:0 0 10px;font-size:19px;line-height:1.45}
+.msg h4{margin:0 0 6px;font-family:Montserrat,sans-serif;font-weight:900;font-size:14px;text-transform:uppercase;color:var(--red)}
+.msg p{margin:6px 0}
+.fs-btn{float:right;font-size:13px}
+/* tabbar */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--navy);display:grid;grid-template-columns:repeat(5,1fr);padding-bottom:env(safe-area-inset-bottom)}
+.tabs button{background:none;border:0;color:#b8c6dd;font-family:Montserrat,sans-serif;font-weight:800;font-size:11px;text-transform:uppercase;padding:8px 2px 9px;min-height:64px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+.tabs button svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.tabs button.on{color:#fff;box-shadow:inset 0 4px 0 var(--red)}
+.empty{text-align:center;color:var(--muted);padding:20px 10px}
+.modal{position:fixed;inset:0;background:rgba(0,20,50,.55);z-index:30;display:none;align-items:flex-end;justify-content:center}
+.modal.on{display:flex}
+.sheet{background:#fff;width:100%;max-width:760px;border-radius:16px 16px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom))}
+.sheet textarea,.sheet input{width:100%;font:inherit;font-size:18px;padding:10px 12px;border:2px solid var(--navy);border-radius:8px;margin:6px 0 10px}
+.sheet textarea{min-height:110px}
+.row{display:flex;gap:8px}.row .btn{flex:1}
+.offline{display:none;background:#fff4d6;color:#7a5600;text-align:center;font-size:14px;font-weight:700;padding:5px}
+body.off .offline{display:block}
+@media (min-width:700px){body{font-size:18px}.team-n{font-size:58px}.rn{font-size:23px}}
+</style>
+</head>
+<body>
+<div class="top"><img src="img/affiche.jpg" alt="MAIF Ekiden de Paris, 1er novembre 2026" width="940" height="220"></div>
+<div class="slogan">Dossier speaker · <b>1 nov 2026</b> · 13e édition</div>
+<div class="offline">Hors connexion : données en mémoire du téléphone</div>
+
+<main>
+
+<!-- ===== DOSSARD ===== -->
+<section class="view on" id="v-dossard">
+<div class="bigin"><input id="bib" type="text" inputmode="decimal" autocomplete="off" placeholder="N° dossard" aria-label="Numéro de dossard"><button class="btn r" id="bibgo" aria-label="Chercher">OK</button></div>
+<div class="hint">Tape le n° d'équipe (ex. <b>310</b>) ou équipe.relais (ex. <b>310.2</b>).</div>
+<div id="bibres"></div>
+</section>
+
+<!-- ===== RECHERCHE ===== -->
+<section class="view" id="v-search">
+<input id="q" class="txt" type="search" autocomplete="off" placeholder="Nom, prénom ou équipe" aria-label="Recherche">
+<div class="chips"><button class="chip" data-f="rep">★ Repérés</button><button class="chip" data-f="eq">Équipes notées</button><button class="chip" data-f="sd">Sans dossard</button></div>
+<div id="qres" class="list"></div>
+</section>
+
+<!-- ===== DOSSIER ===== -->
+<section class="view" id="v-dossier">
+<h2>Le dossier</h2>
+
+<details open><summary>L'essentiel 2026</summary><div class="dc">
+<div class="grid2">
+<div class="tile"><div class="big">1 569</div>équipes dans la startlist</div>
+<div class="tile"><div class="big">9 414</div>coureurs</div>
+<div class="tile"><div class="big">38,8 %</div>de femmes</div>
+<div class="tile"><div class="big">18 %</div>de licenciés FFA</div>
+<div class="tile"><div class="big">1 273</div>équipes mixtes · 215 H · 81 F</div>
+<div class="tile"><div class="big">8 150</div>passages de témoin</div>
+</div>
+<ul class="l small">
+<li>Complet deux mois avant la course. Label national FFA, qualificatif pour les France 2027.</li>
+<li>Fin du Half-Ekiden : seul le format marathon reste.</li>
+<li>Aucun tee-shirt distribué : cadeau dématérialisé, une <b>vidéo finisher</b> avec les passages de tous les relayeurs de l'équipe.</li>
+<li>Plus gros contingents : <b>Fives 51 équipes</b>, NGE 23, MAIF 20.</li>
+<li>Ekiden : « eki » la station, « den » transmettre. Premier ekiden au Japon en 1917, de Kyoto à Tokyo. Le témoin japonais : le <b>tasuki</b>, une écharpe.</li>
+</ul>
+</div></details>
+
+<details><summary>Format &amp; horaires</summary><div class="dc">
+<div class="legs"><div style="flex:5" class="c">R1<br>5</div><div style="flex:10">R2<br>10</div><div style="flex:5" class="c">R3<br>5</div><div style="flex:10">R4<br>10</div><div style="flex:5" class="c">R5<br>5</div><div style="flex:7.2" class="f">R6<br>7,195</div></div>
+<p class="small muted">Boucle de 5 km. Le 6e relayeur (dossard à fond rouge) fait la boucle + l'aller-retour vers le pont de Grenelle.</p>
+<div class="kv">
+<b>7h30</b><span>Ouverture du village (stade Émile-Anthoine)</span>
+<b>8h00</b><span>Échauffement FFA sur le podium (Sanounou Traoré, Cergy-Pontoise Athlétisme)</span>
+<b>8h30</b><span>2e échauffement</span>
+<b>8h50</b><span>Ambiance départ, mascotte Runnie</span>
+<b style="color:var(--red)">9h00</b><span><b>DÉPART</b> : Jean Gracia (FFA), Yves Pellicier (MAIF), Hugo Deck</span>
+<b>9h30</b><span>3e échauffement</span>
+<b>≈ 11h00</b><span>Premières arrivées (record 1h58'05 → 10h58)</span>
+<b>11h30</b><span>DJ au départ / arrivée</span>
+<b style="color:var(--red)">12h00</b><span><b>Podiums</b> sur le village</span>
+<b>14h00</b><span>Vélo balai, fin de course (5 h maxi = 7'06/km)</span>
+<b>15h00</b><span>Fermeture du village</span>
+</div>
+</div></details>
+
+<details><summary>Hugo Deck · au départ</summary><div class="dc">
+<p>Vainqueur de la <b>Diagonale des Fous 2026</b> (16 octobre) en <b>22h54'19</b> sur environ 180 km et 10 000 m de D+, <b>dès sa première participation</b>, à 26 ans.</p>
+<p>Près d'une heure d'avance sur Robin Juillaguet (23h51'54). Il a pris la tête dans Mafate, après une nuit menée par Vincent Esmiol.</p>
+<p>Double vainqueur de la MaXi-Race (2025, 2026) et du KAT 100 by UTMB 2026. Athlète adidas Terrex. Remet les prix My Data Run hommes.</p>
+</div></details>
+
+<details><summary>Records</summary><div class="dc">
+<table>
+<tr><th></th><th>Chrono</th><th>Équipe, lieu</th></tr>
+<tr><td><b>Monde H</b></td><td class="ch">1h57'06</td><td>Kenya, Chiba 2005 : Ndambiri, Mathathi, Mwangi, Mogusu, Nyerere, Kariuki</td></tr>
+<tr><td><b>Monde F</b></td><td class="ch">2h11'41</td><td>Chine, Pékin 1998</td></tr>
+<tr><td><b>Europe H</b></td><td class="ch">2h02'37</td><td>Belgique (Runners' Lab), Tongres 2022 : De Bock, Debognies, Van de Velde, Kimeli, Boulvin, Kersten</td></tr>
+<tr><td><b>Europe F</b></td><td class="ch">—</td><td>Catégorie vacante</td></tr>
+<tr><td><b>France H</b></td><td class="ch">2h02'43</td><td>Décines Meyzieu, Paris 2025 : Tixier 14'27, Bresc 28'55, Dussuyer 14'34, Louradour 29'31, Fourmont 14'27, Jard 20'51</td></tr>
+<tr><td><b>France F</b></td><td class="ch">2h22'53</td><td>Équipe de France, Copenhague 1996 : Duros, Murcia, Bertel, Guillot, Fournery, Rebelo</td></tr>
+<tr><td><b>Paris H</b></td><td class="ch">1h58'05</td><td>42 House 2025 : Chemiron 13'38, Kipkemoi 28'03, Cheserek 14'08, Aimun 27'52, Ondiso 14'11, Kibor 20'15</td></tr>
+<tr><td><b>Paris F</b></td><td class="ch">2h22'30</td><td>RMA 2025 : Porentru 16'29, Girard 34'56, Marchewka 17'15, Chebwogen (KEN) 32'16, Bazire 17'02, Périault 24'34 → pas un record de France (une Kényane)</td></tr>
+<tr><td><b>Belgique F</b></td><td class="ch">2h31'13</td><td>Daring Club Leuven, Bruxelles 2012</td></tr>
+</table>
+<h3>À dire</h3>
+<ul class="l small">
+<li>Record du monde = 21,6 km/h de moyenne, 2'46"5/km : 13'53 au 5 km, 27'45 au 10 km.</li>
+<li>Il reste 2'24" plus rapide que le record du monde du marathon de Sabastian Sawe (1h59'30, Londres 2026).</li>
+<li>Record de France H : 14'32 au 5 km, 29'05 au 10 km, 20'55 au dernier relais.</li>
+<li>Record de France F : 16'56 au 5 km, 33'52 au 10 km, 24'22 au dernier relais.</li>
+<li>Meilleurs Français par relais à Paris : Schrub 14'02 (R1, 2022), Bresc 28'55 (R2, 2025), Dussuyer 14'34 (R3), Chahdi 28'54 (R4, 2022), Fourmont 14'27 (R5), Gondouin 20'41 (R6, 2022).</li>
+</ul>
+</div></details>
+
+<details><summary>Histoire &amp; palmarès</summary><div class="dc">
+<div class="kv small">
+<b>1917</b><span>Premier ekiden au Japon, de Kyoto à Tokyo.</span>
+<b>1990</b><span>1er Ekiden de Paris, entre nations. Au dernier relais, toutes les équipes sauf la Grande-Bretagne et le Danemark se trompent de parcours. Victoire du Portugal, pas de 2e édition.</span>
+<b>2013</b><span>Renaissance FFA, arrivée à l'Hôtel de Ville, près de 300 équipes. Japon 2h15'14.</span>
+<b>2015-17</b><span>Triplé d'Unirun.</span>
+<b>2018</b><span>MAIF partenaire titre. 1ers Championnats de France à Paris (Alès Cévennes 2h08'23).</span>
+<b>2020</b><span>Annulé (avis défavorable de la préfecture).</span>
+<b>2021</b><span>Retour, 5 000 coureurs, création du Half-Ekiden.</span>
+<b>2022</b><span>Départ devant le stade Émile-Anthoine. Record de France Team adidas 2h04'40.</span>
+<b>2023</b><span>10e édition sous la pluie, RMA vainqueur sur le fil.</span>
+<b>2024</b><span>Plus de tee-shirt. Zoom Volt Runners vainqueurs (≈2h11'33).</span>
+<b>2025</b><span>Déluge de records : 42 House 1h58'05, Décines 2h02'43, RMA 2h22'30. 1 630 équipes.</span>
+</div>
+<h3>Palmarès scratch</h3>
+<p class="small">2013 Japon 2h15'14 · 2014 « France » 2h07'47 · 2015 Unirun 2h11'03 · 2016 Unirun 2h13'41 · 2017 Unirun 2h14'33 · 2018 Alès Cévennes 2h08'23 · 2019 Unirun 59 2h10'22 · 2021 Pierrefitte MA 2h13'21 · 2022 Team adidas 2h04'40 · 2023 Racing MA 2h14'53 · 2024 Zoom Volt Runners ≈2h11'33 · 2025 42 House 1h58'05</p>
+<p class="small"><b>Femmes :</b> 2018 St-Julien 74 2h29'50 · 2021 Team Lenglen 2h43'15 · 2022 St-Julien 74 2h29'34 · 2023 Infinity I-Run 2h45'57 · 2024 Racing CF 2h33'23 · 2025 Racing MA 2h22'30</p>
+<p class="small"><b>Mixte :</b> 2017 RCF Issy Avia · 2018 SPN Vernon · 2021 Garde républicaine 2h20'38 · 2022 Bocage Vendée · 2023 On/Off 2h16'47 · 2024 Boulogne AC 2h22'41 · 2025 RMA 2h17'19</p>
+</div></details>
+
+<details><summary>Plateau &amp; objectifs</summary><div class="dc">
+<p><b>Dossard 1 · Faster Toget'her</b> : six internationales pour le record de France F (2h22'53).</p>
+<p><b>Dossard 3 · Pays de Fontainebleau</b> : Carvalho, Frère… pour le record de France H (2h02'43).</p>
+<p><b>Dossards 4 et 5 · US Braine-Waterloo</b> : records de Belgique F (2h31'13) et H (2h02'37).</p>
+<p><b>1613 · Police nationale 1</b> : Bourgoin au R1, Cornelis (aviron) au R3, Périault au R6. <b>1609 · Police 2</b> : Paoletti, Barouh, Peron.</p>
+<p><b>Doyenne de la startlist</b> : Françoise Le Gall, 80 ans (306.3, CA Sports 2).</p>
+<p class="muted small">Toutes les fiches individuelles : onglet Recherche → ★ Repérés.</p>
+</div></details>
+
+<details><summary>Parcours &amp; patrimoine</summary><div class="dc">
+<img class="full" src="img/parcours.jpg" alt="Plan officiel du parcours" loading="lazy" width="880" height="631">
+<h3>Animations</h3>
+<ul class="l small">
+<li><b>Pont de Bir-Hakeim</b> : encouragement adidas Runners</li>
+<li><b>Av. Kennedy → av. de New York</b> : challenge 1 km My Data Run</li>
+<li><b>Passerelle Debilly</b> : zone MAIF, DJ et speaker</li>
+<li><b>Tunnel de l'Alma</b> : set lumineux, DJ</li>
+<li><b>Sous le pont des Invalides</b> : Timbao (batucada)</li>
+<li><b>Sous le pont de l'Alma</b> : Kif Orchestra</li>
+<li><b>Souterrain de Varsovie</b> : Bichat Blouse Brothers</li>
+</ul>
+<h3>Patrimoine</h3>
+<ul class="l small">
+<li><b>Tour Eiffel</b> : 330 m avec l'antenne, 1 665 marches, 2,5 millions de rivets, 18 000 pièces, 10 100 t. Construite en 2 ans, 2 mois et 5 jours, inaugurée le 31 mars 1889. 6 millions de visiteurs/an. Repeinte tous les 7 ans environ (60 t de peinture).</li>
+<li><b>Stade Émile-Anthoine</b> (15e, rue Jean-Rey) : piste éclairée de plus de 300 m, 6 couloirs. Village, podium et protocole. Arrivée jugée sur sa piste en 2022.</li>
+<li><b>Bir-Hakeim</b> (1905) : deux étages, métro 6 au-dessus. Nom donné en 1949 en hommage à la bataille de 1942.</li>
+<li><b>Alma</b> : le Zouave sert d'échelle des crues (1910 : l'eau aux épaules).</li>
+<li><b>Iéna</b> (1814), <b>passerelle Debilly</b> (Expo 1900), palais de Chaillot en face.</li>
+</ul>
+</div></details>
+
+<details><summary>Mémo terrain</summary><div class="dc">
+<p><b>Dossard 310-2</b> = équipe 310, relais 2. Bandeau : <span class="bdg FFA">violet club FFA</span> <span class="bdg EC">vert entreprise</span> <span class="bdg GP">bleu grand public</span>. <b style="color:var(--red)">Fond rouge = 6e relayeur.</b></p>
+<p><b>Zone de relais</b> (quai Jacques-Chirac, 25 boxes) : 1201-2200 entreprises · 301-1200 grand public · 1-300 clubs FFA (au plus près de la sortie).</p>
+<h3>Podiums 12h</h3>
+<div class="kv small">
+<b>Hommes</b><span>J. Gracia (FFA)</span>
+<b>Femmes</b><span>E. Jaeger (FFA)</span>
+<b>Mixte</b><span>J. Villon</span>
+<b>Entr. H</b><span>K. Legrand</span>
+<b>Entr. F</b><span>Y. Pellicier (MAIF)</span>
+<b>Entr. X</b><span>P. Karam</span>
+<b>Région</b><span>M. Sauvage</span>
+<b>MDR H</b><span>H. Deck · My Data Run 5 premiers</span>
+<b>MDR F</b><span>à confirmer</span>
+</div>
+<h3 class="r">À corriger au micro</h3>
+<ul class="l small"><li>Hugo <b>Deck</b> (pas « Dreck »).</li><li>Florian <b>Carvalho</b>.</li><li>Village ouvert <b>dimanche</b> 1er novembre (pas samedi).</li><li>Le 2h22'30 du RMA n'est pas un record de France.</li></ul>
+</div></details>
+</section>
+
+<!-- ===== MICRO ===== -->
+<section class="view" id="v-micro">
+<h2>Messages micro</h2>
+<div class="msg"><h4>Remerciements partenaires</h4>
+<p>La Fédération Française d'Athlétisme remercie les partenaires du MAIF Ekiden de Paris 2026 :</p>
+<p>• <b>MAIF</b>, partenaire titre et principal de l'événement<br>• <b>adidas</b> et le <b>Crédit Mutuel</b>, ses partenaires principaux<br>• <b>i-Run.fr</b>, fournisseur officiel<br>• <b>RMC</b> et <b>Le Parisien</b>, ses partenaires médias<br>• la <b>Ville de Paris</b> et la <b>Région Île-de-France</b>, ses partenaires institutionnels</p>
+<p>Nous remercions également l'ensemble des <b>bénévoles</b> qui rendent possible l'organisation de ce bel événement !</p></div>
+<div class="msg"><h4>Ecobox MAIF</h4><p>Sur le village, la MAIF met à disposition des <b>Ecobox</b> pour déposer vêtements et matériel de sport qui ne vous servent plus. Donnez une deuxième vie à vos affaires inutilisées !</p></div>
+<div class="msg"><h4>Éco-responsabilité</h4>
+<p>Le MAIF Ekiden de Paris est <b>l'événement référence éco-responsable</b>, avec le soutien de son partenaire principal, la MAIF. La FFA renforce sa démarche RSE pour la pratique d'un sport responsable.</p>
+<p>Cette année encore, <b>aucun tee-shirt de course</b> n'est distribué. Le MAIF Ekiden de Paris offre à tous les coureurs un cadeau dématérialisé : une <b>vidéo finisher</b> avec l'ensemble des passages des relayeurs de son équipe.</p>
+<p>Rampes à eau pour <b>zéro bouteille</b>, ravitaillement local avec des produits d'Île-de-France, toilettes sèches, tri des déchets et des biodéchets avec <b>Hector le Collector</b>, parking à vélos gratuit.</p></div>
+<div class="msg"><h4>Challenge My Data Run</h4>
+<p>Aujourd'hui, il y a un défi dans le défi : le <b>Challenge Mydatarun</b> !</p>
+<p>Sur le kilomètre le plus exigeant du parcours, ça va se jouer au chrono : relances, faux plat, tunnel… il va falloir tout donner ! Gardez-en sous le pied : ce kilomètre peut faire la différence.</p>
+<p>Pour ceux qui suivent la course, rendez-vous sur le <b>suivi live de l'application</b> : performances et classement du Challenge Mydatarun en direct.</p>
+<p>Les <b>5 hommes et les 5 femmes</b> les plus rapides sur ce kilomètre seront récompensés.</p>
+<p><b>Un kilomètre. Un chrono. Un challenge. À vous de jouer !</b></p></div>
+<div class="msg"><h4>Coachs FFA &amp; échauffements</h4>
+<p>Pour bien courir, tout commence par un bon échauffement ! Aujourd'hui, <b>12 coachs FFA</b> accompagnent les équipes Privilège sur les péniches, avec des échauffements dédiés et leurs derniers conseils.</p>
+<p>Pour tous les coureurs : rendez-vous sur le <b>podium du stade Émile-Anthoine</b>. À <b>8h, 8h30 et 9h30</b>, <b>Sanounou Traoré</b>, du Cergy-Pontoise Athlétisme, vous guide pour faire monter le cardio.</p>
+<p>Avant de rejoindre votre sas, passez par le podium : <b>on s'échauffe ensemble avec la FFA !</b></p></div>
+<div class="msg"><h4>Le village (stade Émile-Anthoine, 7h30-15h)</h4>
+<p>Consigne · 3 échauffements avec coach FFA (8h, 8h30, 9h30) · ravitaillement fruits frais, fruits secs et épicerie en vrac · zone de récupération avec kinés (huiles <b>Eona</b>) et pressothérapie (<b>Ryma</b>) · borne photo · atelier pancartes d'encouragement en carton upcyclé et maquillage (tente FFA) · jeux en bois.</p>
+<p>Stand <b>MAIF</b> : animations Sport Planète et flocage de tee-shirt avec <b>Oui Are Makers</b> (ramenez votre tee-shirt !) · <b>Ecologic</b> : ateliers DIY et collecte de matériel de sport · <b>Good Move</b> : équilibre alimentaire avec une diététicienne · expo « 100 marathons vus du ciel » (Uni-Vert Sport) · <b>Santé publique France</b> : lancement du Mois sans tabac · <b>Police nationale</b> · food trucks (crêpes, sandwichs).</p></div>
+</section>
+
+<!-- ===== LIVE ===== -->
+<section class="view" id="v-live">
+<h2>Live &amp; chrono</h2>
+<a class="btn r" style="display:block;text-align:center;text-decoration:none;font-size:18px;padding:18px" href="https://live.breizhchrono.com/external/live5/index.jsp?reference=1488071608761-930" target="_blank" rel="noopener">Ouvrir le live Breizh Chrono ↗</a>
+<div class="card" style="margin-top:12px">
+<h3 style="margin-top:0">Temps de course</h3>
+<div class="big" id="elapsed" style="font-size:54px;color:var(--navy)">—</div>
+<div class="small muted">Depuis le départ de 9h00 (heure du téléphone).</div>
+<div id="paces" class="small" style="margin-top:8px"></div>
+</div>
+<div class="card">
+<h3 style="margin-top:0">Mes ajouts</h3>
+<p class="small">Les notes ajoutées sur ce téléphone (bouton « + note » sous un coureur). Elles ne sont pas partagées avec l'autre appareil.</p>
+<div class="row"><button class="btn l" id="exp">Copier mes notes</button><button class="btn l" id="clr">Tout effacer</button></div>
+<div id="expmsg" class="small muted" style="margin-top:6px"></div>
+</div>
+<p class="small muted" id="maj"></p>
+</section>
+
+</main>
+
+<nav class="tabs" aria-label="Navigation">
+<button data-v="dossard" class="on"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 10h4M7 14h10"/></svg>Dossard</button>
+<button data-v="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Recherche</button>
+<button data-v="dossier"><svg viewBox="0 0 24 24"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h8"/></svg>Dossier</button>
+<button data-v="micro"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Micro</button>
+<button data-v="live"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>Live</button>
+</nav>
+
+<div class="modal" id="modal"><div class="sheet">
+<div style="font-family:Montserrat,sans-serif;font-weight:900;text-transform:uppercase;color:var(--navy)" id="mtitle">Note</div>
+<input id="mt" placeholder="Titre court (ex. International · 800 m)">
+<textarea id="mx" placeholder="Infos à dire au micro"></textarea>
+<div class="row"><button class="btn l" id="mcancel">Annuler</button><button class="btn l" id="mdel">Supprimer</button><button class="btn r" id="msave">Enregistrer</button></div>
+</div></div>
+
+<script>
+(function(){
+'use strict';
+var DATA=null, REP={c:{},e:{}}, TEAMS={}, IDX=[];
+var CAT={GP:'Grand public',EC:'Entreprise classique',EP:'Entreprise privilège',FFA:'Club FFA'};
+var TYP={H:'Hommes',F:'Femmes',X:'Mixte'};
+var DIST=['5 km','10 km','5 km','10 km','5 km','7,195 km'];
+function $(s){return document.querySelector(s)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function norm(s){return String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase()}
+function cap(s){s=String(s||'').trim();return s.toLowerCase().replace(/(^|[\s\-'])(\p{L})/gu,function(m,a,b){return a+b.toUpperCase()})}
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||'null');localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+var PERSO=store('ek26notes')||{};
+
+// ---- navigation
+function show(v){document.querySelectorAll('.view').forEach(function(x){x.classList.toggle('on',x.id==='v-'+v)});document.querySelectorAll('.tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.v===v)});window.scrollTo(0,0);store('ek26tab',v);if(v==='dossard')setTimeout(function(){$('#bib').focus()},50)}
+document.querySelectorAll('.tabs button').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.v)})});
+
+// ---- data
+Promise.all([fetch('data/startlist.json').then(function(r){return r.json()}),fetch('data/reperes.json').then(function(r){return r.json()})]).then(function(a){
+  DATA=a[0];
+  (a[1].coureurs||[]).forEach(function(x){REP.c[String(x.dossard).trim()]=x});
+  (a[1].equipes||[]).forEach(function(x){REP.e[String(x.dossard).trim()]=x});
+  DATA.teams.forEach(function(t){TEAMS[t.d]=t;t.r.forEach(function(r,i){IDX.push({k:norm(r[0]+' '+r[1]+' '+r[1]+' '+r[0]),t:t,i:i})});IDX.push({k:norm(t.e),t:t,i:-1})});
+  $('#maj').textContent=DATA.maj+' · '+DATA.teams.length+' équipes';
+  var h=location.hash.replace('#','');if(/^\d/.test(h)){$('#bib').value=h;lookup()}
+}).catch(function(err){console.error(err);$('#bibres').innerHTML='<div class="empty">Impossible de charger les données. Vérifie la connexion puis recharge la page.</div>'});
+
+// ---- dossard
+function parseBib(v){var m=String(v).trim().replace(',', '.').match(/^(\d+)(?:[.\s\-\/]+(\d))?$/);return m?{d:+m[1],o:m[2]?+m[2]:0}:null}
+function repHtml(key){var h='',r=REP.c[key],p=PERSO[key];
+  if(r){var v=/V[ÉE]RIFIER|HOMONYME/i.test(r.titre);h+='<div class="rep'+(v?' ver':'')+'"><b>'+(v?'⚠ ':'★ ')+esc(r.titre)+'</b>'+esc(r.texte)+'</div>'}
+  if(p){h+='<div class="rep perso"><b>✎ '+esc(p.t||'Ma note')+'</b>'+esc(p.x)+'</div>'}
+  return h}
+function renderTeam(t,o){
+  var e=REP.e[String(t.d)], pe=PERSO[String(t.d)];
+  var h='<div class="card"><div class="team-h"><div class="team-n">'+t.d+'</div><div><div class="team-name">'+esc(t.e)+'</div><div class="badges"><span class="bdg '+t.c+'">'+CAT[t.c]+'</span><span class="bdg">'+TYP[t.t]+'</span>';
+  var nrep=t.r.filter(function(r,i){return REP.c[t.d+'.'+(i+1)]}).length; if(nrep)h+='<span class="bdg star">★ '+nrep+' repéré'+(nrep>1?'s':'')+'</span>';
+  h+='</div></div></div>';
+  if(e)h+='<div class="note"><b>'+esc(e.titre)+'</b>'+esc(e.texte)+'</div>';
+  if(pe)h+='<div class="note"><b>✎ '+esc(pe.t||'Ma note équipe')+'</b>'+esc(pe.x)+'</div>';
+  h+='<div style="margin-top:6px">';
+  t.r.forEach(function(r,i){var k=t.d+'.'+(i+1);
+    h+='<div class="runner'+(i===5?' last':'')+(o===i+1?' hl':'')+'" id="r'+(i+1)+'"><div class="o">R'+(i+1)+'<small>'+DIST[i]+'</small></div><div><div class="rn">'+esc(cap(r[0]))+' <span class="nm">'+esc(r[1])+'</span></div><div class="rmeta">'+(r[2]==='F'?'Femme':'Homme')+(r[3]?' · '+r[3]+' ans':'')+' · '+k+'</div></div>'+repHtml(k)+'<button class="addn" data-k="'+k+'" data-n="'+esc(cap(r[0])+' '+r[1])+'">'+(PERSO[k]?'modifier ma note':'+ note')+'</button></div>'});
+  h+='<button class="addn" style="margin-top:6px" data-k="'+t.d+'" data-n="Équipe '+t.d+'">'+(pe?'modifier la note équipe':'+ note équipe')+'</button></div></div>';
+  var ks=Object.keys(TEAMS).map(Number),ix=ks.indexOf(t.d);
+  h+='<div class="nav2"><button class="btn l" data-go="'+(ks[ix-1]||'')+'"'+(ix>0?'':' disabled')+'>‹ '+(ks[ix-1]||'')+'</button><button class="btn l" data-go="'+(ks[ix+1]||'')+'"'+(ix<ks.length-1?'':' disabled')+'>'+(ks[ix+1]||'')+' ›</button></div>';
+  return h}
+function lookup(){
+  if(!DATA)return;var p=parseBib($('#bib').value),out=$('#bibres');
+  if(!p){out.innerHTML='';return}
+  var t=TEAMS[p.d];
+  if(!t){var sd=DATA.sansDossard.filter(function(x){return x[0]===p.d});out.innerHTML='<div class="empty">Aucune équipe n°'+p.d+'.'+(sd.length?'':'')+'</div>';return}
+  out.innerHTML=renderTeam(t,p.o);
+  if(p.o){var el=document.getElementById('r'+p.o);if(el)el.scrollIntoView({block:'center'})}
+  history.replaceState(null,'','#'+$('#bib').value.trim().replace(/\s+/g,'.'));
+}
+$('#bib').addEventListener('input',function(){clearTimeout(this._t);this._t=setTimeout(lookup,250)});
+$('#bib').addEventListener('keydown',function(e){if(e.key==='Enter'){lookup();this.blur()}});
+$('#bibgo').addEventListener('click',function(){lookup();$('#bib').blur()});
+$('#bibres').addEventListener('click',function(e){var g=e.target.closest('[data-go]');if(g&&g.dataset.go){$('#bib').value=g.dataset.go;lookup();window.scrollTo(0,0)}});
+function openBib(v){show('dossard');$('#bib').value=v;lookup();$('#bib').blur()}
+
+// ---- recherche
+var filt='';
+function item(t,i,sub){var k=i>=0?t.d+'.'+(i+1):String(t.d);var r=i>=0?t.r[i]:null;
+  return '<button class="it" data-b="'+k+'"><span class="d">'+k+'</span><span class="t">'+(r?esc(cap(r[0])+' '+r[1]):esc(t.e))+'</span><span class="s">'+(r?esc(t.e)+' · R'+(i+1)+' '+DIST[i]:CAT[t.c]+' · '+TYP[t.t])+(sub?' · '+esc(sub):'')+'</span></button>'}
+function search(){
+  if(!DATA)return;var q=norm($('#q').value).trim(),o=$('#qres'),h='';
+  if(filt==='rep'){Object.keys(REP.c).concat(Object.keys(PERSO).filter(function(k){return k.indexOf('.')>0&&!REP.c[k]})).sort(function(a,b){return parseFloat(a)-parseFloat(b)||a.localeCompare(b)}).forEach(function(k){var p=parseBib(k),t=p&&TEAMS[p.d];if(!t)return;var r=REP.c[k]||{titre:(PERSO[k]||{}).t||'Ma note'};if(q&&norm(r.titre+' '+t.r[p.o-1].join(' ')+' '+t.e).indexOf(q)<0)return;h+=item(t,p.o-1,r.titre)});o.innerHTML=h||'<div class="empty">Aucun.</div>';return}
+  if(filt==='eq'){Object.keys(REP.e).sort(function(a,b){return a-b}).forEach(function(k){var t=TEAMS[k];if(t&&(!q||norm(t.e+REP.e[k].titre).indexOf(q)>=0))h+=item(t,-1,REP.e[k].titre)});o.innerHTML=h;return}
+  if(filt==='sd'){DATA.sansDossard.forEach(function(x){if(q&&norm(x[1]+' '+x[2]+' '+x[5]).indexOf(q)<0)return;h+='<div class="it"><span class="t">'+esc(cap(x[1])+' '+x[2])+'</span><span class="s">Sans dossard · équipe '+(x[0]||'?')+' · '+esc(x[5])+'</span></div>'});o.innerHTML=h||'<div class="empty">Aucun.</div>';return}
+  if(q.length<2){o.innerHTML='<div class="empty">Tape au moins 2 lettres, ou choisis un filtre.</div>';return}
+  var words=q.split(/\s+/),n=0;
+  for(var j=0;j<IDX.length&&n<80;j++){var x=IDX[j];if(words.every(function(w){return x.k.indexOf(w)>=0})){h+=item(x.t,x.i,REP.c[x.t.d+'.'+(x.i+1)]?'★':'');n++}}
+  o.innerHTML=h||'<div class="empty">Aucun résultat.</div>';
+}
+$('#q').addEventListener('input',function(){clearTimeout(this._t);this._t=setTimeout(search,200)});
+document.querySelectorAll('.chip').forEach(function(c){c.addEventListener('click',function(){filt=filt===c.dataset.f?'':c.dataset.f;document.querySelectorAll('.chip').forEach(function(x){x.classList.toggle('on',x.dataset.f===filt)});search()})});
+$('#qres').addEventListener('click',function(e){var b=e.target.closest('[data-b]');if(b)openBib(b.dataset.b)});
+
+// ---- notes perso
+var curK=null;
+document.addEventListener('click',function(e){var b=e.target.closest('.addn');if(!b)return;curK=b.dataset.k;var p=PERSO[curK]||{};$('#mtitle').textContent=b.dataset.n+' ('+curK+')';$('#mt').value=p.t||'';$('#mx').value=p.x||'';$('#modal').classList.add('on');setTimeout(function(){$('#mx').focus()},50)});
+function closeM(){$('#modal').classList.remove('on')}
+$('#mcancel').addEventListener('click',closeM);
+$('#msave').addEventListener('click',function(){var t=$('#mt').value.trim(),x=$('#mx').value.trim();if(t||x)PERSO[curK]={t:t,x:x};else delete PERSO[curK];store('ek26notes',PERSO);closeM();lookup()});
+$('#mdel').addEventListener('click',function(){delete PERSO[curK];store('ek26notes',PERSO);closeM();lookup()});
+$('#exp').addEventListener('click',function(){var s=JSON.stringify(PERSO,null,1);var done=function(){$('#expmsg').textContent='Copié : colle-le dans la conversation pour l\'ajouter au site.'};try{navigator.clipboard.writeText(s).then(done,function(){$('#expmsg').textContent=s})}catch(e){$('#expmsg').textContent=s}});
+$('#clr').addEventListener('click',function(){if($('#clr').dataset.ok){PERSO={};store('ek26notes',PERSO);$('#clr').textContent='Tout effacer';delete $('#clr').dataset.ok;$('#expmsg').textContent='Notes effacées.';return}$('#clr').dataset.ok=1;$('#clr').textContent='Confirmer ?'});
+
+// ---- chrono
+function tick(){var n=new Date(),s=new Date(2026,10,1,9,0,0);var d=(n-s)/1000;var el=$('#elapsed');
+  if(d<0){var r=-d,hh=Math.floor(r/3600),mm=Math.ceil(r%3600/60);el.textContent='J – '+(hh?hh+'h ':'')+mm+' min';$('#paces').innerHTML='Avant le départ du dimanche 1er novembre, 9h00.';return}
+  if(d>6*3600){el.textContent='Course terminée';$('#paces').innerHTML='';return}
+  var h=Math.floor(d/3600),m=Math.floor(d%3600/60),sec=Math.floor(d%60);el.textContent=h+'h'+String(m).padStart(2,'0')+'\''+String(sec).padStart(2,'0');
+  var km=function(tot){return Math.min(42.195,d/tot*42.195).toFixed(1)};
+  $('#paces').innerHTML='Au rythme du <b>record de l\'épreuve</b> (1h58\'05) : '+km(7085)+' km · du <b>record de France H</b> (2h02\'43) : '+km(7363)+' km · du <b>record de France F</b> (2h22\'53) : '+km(8573)+' km'}
+setInterval(tick,1000);tick();
+
+// ---- hors ligne
+function net(){document.body.classList.toggle('off',!navigator.onLine)}
+window.addEventListener('online',net);window.addEventListener('offline',net);net();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
+var last=store('ek26tab');if(last&&last!=='dossard'&&!location.hash)show(last);
+})();
+</script>
+</body>
+</html>
