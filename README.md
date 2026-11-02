@@ -17,3 +17,7 @@ Le site se met à jour en 1 à 2 minutes. Format d'un bloc :
 ```
 
 Les notes ajoutées depuis le téléphone (bouton « + note ») restent sur ce téléphone.
+
+## Réutiliser pour une autre course
+- [MODELE.md](MODELE.md) : la méthode complète, les fichiers à demander, les outils (`outils/`) et les pièges.
+- [ROADMAP.md](ROADMAP.md) : améliorations prévues et réflexion sur une version piste / salle.
