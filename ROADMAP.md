@@ -59,8 +59,14 @@ réunion, par le speaker ou par une deuxième personne pendant que le speaker pa
 5. **Concours verticaux** (hauteur, perche) : barres successives, O / X / –, **éliminé après 3 échecs
    consécutifs** (masqué automatiquement), classement selon la règle (barre franchie, échecs à cette
    barre, total des échecs).
-6. **Alertes speaker** : quand une perf saisie bat le SB, le PB, la meilleure perf de l'engagement,
-   le record du meeting ou un minima → pastille « PB ! », « Record du meeting »…
+6. **Alertes speaker** (idée validée, prioritaire) : dès qu'une perf est saisie, comparaison automatique
+   avec, **selon la catégorie de l'athlète** (cadet, junior, espoir, senior, masters…) :
+   - SB et PB de l'athlète → « SB ! », « PB ! » ;
+   - record du meeting, records de France / d'Europe / du monde **de sa catégorie** et toutes catégories ;
+   - minima des championnats (France, Europe, Monde, JO) applicables à sa catégorie ;
+   - meilleure perf française de l'année (bilan) ;
+   avec une pastille de couleur sur la ligne et un rappel en haut de l'écran (« 1'52"30 : PB pour X,
+   minima France espoirs »). Media Sheet fournit déjà records, minima et bilans par épreuve.
 7. **Recherche par dossard** : toutes les épreuves d'un athlète, avec horaires et perfs déjà saisies.
 
 ### Point technique décisif : la saisie par une deuxième personne
