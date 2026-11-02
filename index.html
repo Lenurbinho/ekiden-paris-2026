@@ -36,6 +36,27 @@ h3.r{background:var(--red)}
 .btn{font-family:Montserrat,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;border:0;border-radius:10px;padding:12px 14px;background:var(--navy);color:#fff;min-height:48px;cursor:pointer}
 .btn.r{background:var(--red)}.btn.l{background:var(--pale);color:var(--navy)}
 .hint{font-size:14px;color:var(--muted);margin:6px 2px 10px}
+.inwrap{flex:1;position:relative;min-width:0;display:flex}.inwrap input{width:100%;padding-right:52px !important}
+.clr{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:44px;height:44px;border:0;border-radius:50%;background:#e8eef5;color:var(--navy);font-size:22px;font-weight:900;cursor:pointer}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0 4px}
+.kp.off{display:none}
+.kp button{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:34px;min-height:58px;border:0;border-radius:10px;background:#fff;color:var(--navy);box-shadow:0 2px 0 #c9d4df;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.kp button:active{background:var(--mint);transform:translateY(1px);box-shadow:none}
+.kp .kpdel,.kp .kpdot{background:#e8eef5}
+.kp .kpmic,.kp .kpclr,.kp .kpok{font-family:Montserrat,sans-serif;font-size:16px;text-transform:uppercase}
+.kp .kpok{background:var(--red);color:#fff;box-shadow:0 2px 0 #a00013}
+.kp .kpclr{background:#e8eef5}
+.kp .kpmic.rec{background:var(--red);color:#fff;animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.6}}
+.kpbar{display:grid;grid-template-columns:2fr 1fr;gap:6px;margin:8px 0 2px}.kpbar.off{display:none}
+.kpbar button{font-family:Montserrat,sans-serif;font-weight:800;font-size:15px;text-transform:uppercase;min-height:50px;border:0;border-radius:10px;background:var(--navy);color:#fff;cursor:pointer}
+.kpbar #kpmic2{background:#fff;color:var(--navy);box-shadow:0 2px 0 #c9d4df}.kpbar #kpmic2.rec{background:var(--red);color:#fff;animation:pulse 1s infinite}
+body.kpon #bibgo{display:none}
+.vox{font-size:15px;color:var(--blue);min-height:0;margin:2px 2px}
+.hist{display:flex;gap:6px;overflow-x:auto;padding:2px 0 4px;-webkit-overflow-scrolling:touch}
+.hist button{flex:none;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;border:2px solid var(--navy);background:#fff;color:var(--navy);border-radius:18px;padding:3px 12px;min-height:40px;cursor:pointer}
+.hist .lbl{flex:none;align-self:center;font-size:12px;color:var(--muted);text-transform:uppercase}
+.lnk{border:0;background:none;color:var(--blue);text-decoration:underline;font:inherit;font-size:13px;cursor:pointer;padding:4px}
 .team-h{display:flex;align-items:flex-start;gap:12px}
 .team-n{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:48px;line-height:.9;color:var(--red)}
 .team-name{font-family:Montserrat,sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:var(--navy);text-transform:uppercase;word-break:break-word}
@@ -150,8 +171,18 @@ body.off .offline{display:block}
 
 <!-- ===== DOSSARD ===== -->
 <section class="view on" id="v-dossard">
-<div class="bigin"><input id="bib" type="text" inputmode="decimal" autocomplete="off" placeholder="N° dossard" aria-label="Numéro de dossard"><button class="btn r" id="bibgo" aria-label="Chercher">OK</button></div>
-<div class="hint">Tape le n° d'équipe (ex. <b>310</b>) ou équipe.relais (ex. <b>310.2</b>).</div>
+<div class="bigin"><div class="inwrap"><input id="bib" type="text" inputmode="none" readonly autocomplete="off" placeholder="N° dossard" aria-label="Numéro de dossard"><button id="bibclr" class="clr" aria-label="Effacer">✕</button></div><button class="btn r" id="bibgo" aria-label="Chercher">OK</button></div>
+<div id="kp" class="kp">
+<button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
+<button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
+<button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
+<button data-k="." class="kpdot">.</button><button data-k="0">0</button><button data-k="del" class="kpdel" aria-label="Retour arrière">⌫</button>
+<button data-k="mic" class="kpmic" aria-label="Dictée vocale">🎤 Dicter</button><button data-k="clr" class="kpclr">Effacer</button><button data-k="ok" class="kpok">OK</button>
+</div>
+<div id="kpbar" class="kpbar off"><button id="kpnew">🔢 Nouveau dossard</button><button id="kpmic2">🎤 Dicter</button></div>
+<div id="vox" class="vox"></div>
+<div id="hist" class="hist"></div>
+<div class="hint"><span id="kphint">Équipe (ex. <b>310</b>) ou équipe.relais (ex. <b>310.2</b>).</span> <button id="kbtog" class="lnk">Clavier du téléphone</button></div>
 <div id="bibres"></div>
 </section>
 
@@ -413,11 +444,11 @@ function snap(){return {v:CUR,b:$('#bib').value,y:window.scrollY,q:$('#q').value
 function remember(){if(RESTORING)return;var s=snap(),l=HIST[HIST.length-1];if(l&&l.v===s.v&&l.b===s.b&&Math.abs(l.y-s.y)<5)return;HIST.push(s);if(HIST.length>60)HIST.shift();backState()}
 function backState(){$('#back').classList.toggle('dim',!HIST.length)}
 function goBack(){var s=HIST.pop();backState();if(!s)return;RESTORING=true;show(s.v);
-  if(s.v==='dossard'){$('#bib').value=s.b;lookup();$('#bib').blur()}
+  if(s.v==='dossard'){$('#bib').value=s.b;lookup();JUSTSHOWN=true;$('#bib').blur()}
   if(s.v==='search'&&$('#q').value!==s.q){$('#q').value=s.q;search()}
   if(s.v==='reperes'&&$('#rpq').value!==s.rq){$('#rpq').value=s.rq;renderRep()}
   RESTORING=false;setTimeout(function(){window.scrollTo(0,s.y)},30)}
-function show(v){if(v!==CUR)remember();CUR=v;document.querySelectorAll('.view').forEach(function(x){x.classList.toggle('on',x.id==='v-'+v)});document.querySelectorAll('.tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.v===v)});window.scrollTo(0,0);store('ek26tab',v);if(v==='dossard'&&!RESTORING)setTimeout(function(){$('#bib').focus()},50)}
+function show(v){if(v!==CUR)remember();CUR=v;document.querySelectorAll('.view').forEach(function(x){x.classList.toggle('on',x.id==='v-'+v)});document.querySelectorAll('.tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.v===v)});window.scrollTo(0,0);store('ek26tab',v);if(v==='dossard'&&!RESTORING&&!KPMODE)setTimeout(function(){$('#bib').focus()},50)}
 document.querySelectorAll('.tabs button').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.v)})});
 
 // ---- data
@@ -453,20 +484,68 @@ function renderTeam(t,o){
   var ks=Object.keys(TEAMS).map(Number),ix=ks.indexOf(t.d);
   h+='<div class="nav2"><button class="btn l" data-go="'+(ks[ix-1]||'')+'"'+(ix>0?'':' disabled')+'>‹ '+(ks[ix-1]||'')+'</button><button class="btn l" data-go="'+(ks[ix+1]||'')+'"'+(ix<ks.length-1?'':' disabled')+'>'+(ks[ix+1]||'')+' ›</button></div>';
   return h}
-function lookup(){
+function lookup(commit){
   if(!DATA)return;var p=parseBib($('#bib').value),out=$('#bibres');
   if(!p){out.innerHTML='';return}
   var t=TEAMS[p.d];
   if(!t){var sd=DATA.sansDossard.filter(function(x){return x[0]===p.d});out.innerHTML='<div class="empty">Aucune équipe n°'+p.d+'.'+(sd.length?'':'')+'</div>';return}
-  out.innerHTML=renderTeam(t,p.o);
+  out.innerHTML=renderTeam(t,p.o);if(commit===true){addHist(p.o?p.d+'.'+p.o:String(p.d));JUSTSHOWN=true;if(KPMODE&&KPOPEN){kpOpen(false)}}
   if(p.o){var el=document.getElementById('r'+p.o);if(el)el.scrollIntoView({block:'center'})}
   history.replaceState(null,'','#'+$('#bib').value.trim().replace(/\s+/g,'.'));
 }
 $('#bib').addEventListener('input',function(){clearTimeout(this._t);this._t=setTimeout(lookup,250)});
-$('#bib').addEventListener('keydown',function(e){if(e.key==='Enter'){lookup();this.blur()}});
-$('#bibgo').addEventListener('click',function(){lookup();$('#bib').blur()});
-$('#bibres').addEventListener('click',function(e){var g=e.target.closest('[data-go]');if(g&&g.dataset.go){remember();$('#bib').value=g.dataset.go;lookup();window.scrollTo(0,0)}});
-function openBib(v){if(CUR==='dossard')remember();show('dossard');$('#bib').value=v;lookup();$('#bib').blur()}
+// ---- saisie : pavé intégré, effacer, dictée, historique
+var KPMODE=store('ek26kp')!==false, JUSTSHOWN=false;
+var KPOPEN=true;
+function kpOpen(o){KPOPEN=o;kpApply()}
+function kpApply(){document.body.classList.toggle('kpon',KPMODE);$('#kpbar').classList.toggle('off',!(KPMODE&&!KPOPEN));var b=$('#bib');if(KPMODE){b.setAttribute('readonly','');b.setAttribute('inputmode','none')}else{b.removeAttribute('readonly');b.setAttribute('inputmode','decimal')}
+  $('#kp').classList.toggle('off',!(KPMODE&&KPOPEN));$('#kbtog').textContent=KPMODE?'Clavier du téléphone':'Pavé intégré'}
+$('#kbtog').addEventListener('click',function(){KPMODE=!KPMODE;store('ek26kp',KPMODE);kpApply();if(!KPMODE)$('#bib').focus()});
+function setBib(v,go){$('#bib').value=v;clearTimeout($('#bib')._t);if(go){lookup(true)}else{$('#bib')._t=setTimeout(lookup,250)}}
+function clearBib(){setBib('');$('#bibres').innerHTML='';history.replaceState(null,'',location.pathname);$('#vox').textContent=''}
+$('#bibclr').addEventListener('click',function(){clearBib();if(KPMODE)kpOpen(true);else $('#bib').focus()});
+$('#kpnew').addEventListener('click',function(){clearBib();kpOpen(true);window.scrollTo(0,0)});
+$('#bib').addEventListener('click',function(){if(KPMODE&&!KPOPEN){clearBib();kpOpen(true)}});
+$('#kpmic2').addEventListener('click',function(){dicter()});
+function addHist(v){var h=store('ek26hist')||[];h=[v].concat(h.filter(function(x){return x!==v})).slice(0,10);store('ek26hist',h);drawHist()}
+function drawHist(){var h=store('ek26hist')||[];$('#hist').innerHTML=h.length?'<span class="lbl">Récents</span>'+h.map(function(x){return '<button data-h="'+esc(x)+'">'+esc(x)+'</button>'}).join(''):''}
+$('#hist').addEventListener('click',function(e){var b=e.target.closest('[data-h]');if(b){remember();setBib(b.dataset.h,true)}});
+$('#kp').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var k=b.dataset.k,v=$('#bib').value;
+  if(navigator.vibrate)try{navigator.vibrate(12)}catch(x){}
+  if(k==='ok'){lookup(true);return}
+  if(k==='clr'){clearBib();return}
+  if(k==='mic'){dicter();return}
+  if(k==='del'){setBib(v.slice(0,-1));return}
+  if(JUSTSHOWN){v='';JUSTSHOWN=false}
+  if(k==='.'&&(v.indexOf('.')>=0||!v))return;
+  if(v.indexOf('.')>=0&&k!=='.'&&v.split('.')[1].length>=1)return;
+  setBib(v+k)});
+// Dictée vocale (Chrome Android : nécessite du réseau)
+var NUMS={zero:0,un:1,une:1,deux:2,trois:3,quatre:4,cinq:5,six:6,sept:7,huit:8,neuf:9,dix:10,onze:11,douze:12,treize:13,quatorze:14,quinze:15,seize:16,vingt:20,trente:30,quarante:40,cinquante:50,soixante:60,cent:100,cents:100,mille:1000};
+function motsEnNombre(t){var tot=0,cur=0,ok=false;t.split(/[\s-]+/).forEach(function(w){if(w==='et')return;var n=NUMS[w];if(n===undefined){if(/^\d+$/.test(w)){cur+=+w;ok=true}return}ok=true;
+  if(n===100){cur=(cur||1)*100}else if(n===1000){tot+=(cur||1)*1000;cur=0}else if(n===20&&cur%100===4){cur=cur-4+80}else if(n<20&&cur%100>=60&&cur%100<80&&cur%10===0){cur+=n}else cur+=n});return ok?tot+cur:null}
+function texteEnDossard(t){t=norm(t).replace(/dossard|equipe|numero/g,' ').trim();
+  var m=t.match(/^(.*?)\s*(?:point|virgule|relais|relayeur|tiret|\.|,)\s*(.*)$/);var a=m?m[1]:t,b=m?m[2]:'';
+  var na=/^[\d\s]+$/.test(a)?+a.replace(/\s/g,''):motsEnNombre(a),nb=b?(/^\d+$/.test(b.trim())?+b.trim():motsEnNombre(b)):null;
+  if(na==null)return null;return nb!=null?na+'.'+nb:String(na)}
+var REC=null;
+function dicter(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition,mic=KPOPEN?document.querySelector('.kpmic'):$('#kpmic2');
+  if(!SR){$('#vox').textContent='Dictée non disponible sur ce navigateur.';return}
+  if(!navigator.onLine){$('#vox').textContent='La dictée a besoin du réseau : utilise le pavé.';return}
+  if(REC){REC.stop();return}
+  REC=new SR();REC.lang='fr-FR';REC.interimResults=false;REC.maxAlternatives=3;
+  mic.classList.add('rec');$('#vox').textContent='Parle : « trois cent dix point deux »…';
+  REC.onresult=function(e){var alts=[].slice.call(e.results[0]).map(function(x){return x.transcript}),d=null,i;
+    for(i=0;i<alts.length&&!d;i++){d=texteEnDossard(alts[i])}
+    if(d){$('#vox').textContent='Entendu : « '+alts[0]+' » → '+d;remember();setBib(d,true)}else{$('#vox').textContent='Pas compris : « '+alts[0]+' »'}};
+  REC.onerror=function(e){$('#vox').textContent=e.error==='not-allowed'?'Autorise le micro pour ce site.':'Dictée interrompue ('+e.error+').'};
+  REC.onend=function(){mic.classList.remove('rec');REC=null};
+  try{REC.start()}catch(x){mic.classList.remove('rec');REC=null}}
+kpApply();drawHist();window.texteEnDossard=texteEnDossard;
+$('#bib').addEventListener('keydown',function(e){if(e.key==='Enter'){lookup(true);this.blur()}});
+$('#bibgo').addEventListener('click',function(){lookup(true);$('#bib').blur()});
+$('#bibres').addEventListener('click',function(e){var g=e.target.closest('[data-go]');if(g&&g.dataset.go){remember();$('#bib').value=g.dataset.go;lookup(true);window.scrollTo(0,0)}});
+function openBib(v){if(CUR==='dossard')remember();show('dossard');$('#bib').value=v;lookup(true);$('#bib').blur()}
 
 function nk(s){return norm(s).split(/\s+/).sort().join(' ')}
 function hasPal(f){return !!(f&&(f.int||f.nat||f.rec))}

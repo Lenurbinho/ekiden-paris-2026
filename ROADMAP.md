@@ -2,13 +2,13 @@
 
 ## A. Saisie des dossards (retours de l'Ekiden 2026)
 
-1. **Pavé numérique intégré** : grosses touches 0-9, « . » et OK en bas d'écran, sans le clavier
+1. ✅ **Pavé numérique intégré** : grosses touches 0-9, « . » et OK en bas d'écran, sans le clavier
    Android. Plus rapide, utilisable d'une main, sans que le clavier cache la fiche.
-2. **Bouton « Effacer »** (✕) dans la case, et effacement automatique quand on recommence à taper
+2. ✅ **Bouton « Effacer »** (✕) dans la case, et effacement automatique quand on recommence à taper
    après avoir consulté une fiche.
-3. **Dictée vocale** : bouton micro → « trois cent dix point deux » → 310.2. Possible avec la
+3. ✅ **Dictée vocale** : bouton micro → « trois cent dix point deux » → 310.2. Possible avec la
    reconnaissance vocale de Chrome sur Android, mais **elle demande du réseau** : prévoir le pavé en secours.
-4. **Historique** des 10 derniers dossards consultés, en pastilles à toucher.
+4. ✅ **Historique** des 10 derniers dossards consultés, en pastilles à toucher.
 5. **Relais suivant / précédent** d'un geste (balayage) sur la fiche équipe.
 
 ## B. Pendant la course
