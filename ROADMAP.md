@@ -29,27 +29,47 @@
 12. **Import Media Sheet sans ordinateur** : déposer le fichier `.json` directement dans le site.
 13. **Dépôt modèle** : un dépôt GitHub « outil-speaker-modele » à copier pour chaque nouvelle course.
 
-## D. Version piste / salle — à étudier
+## D. Version piste / salle : un « CIS hybride »
 
-La différence de fond : sur route, l'entrée est **le dossard** ; sur piste, c'est **l'épreuve**,
-avec plusieurs épreuves en même temps (une course + deux ou trois concours).
+Principe : pas de suivi live branché, mais un écran de type CIS (système d'information de
+compétition) qui suit l'horaire, avec la **possibilité d'entrer les perfs à la main** au fil de la
+réunion, par le speaker ou par une deuxième personne pendant que le speaker parle.
 
-**Ce qui change :**
-- **Onglet « Maintenant »** : les épreuves en cours et à venir dans les 30 minutes, côte à côte
-  (ex. 400 m haies série 2 · perche F · triple saut H), à partir de l'horaire.
-- **Fiche épreuve** : liste de départ avec couloirs ou ordre de passage, records (meeting, France,
-  catégorie), minima, meilleures perfs de la saison, favoris. **Media Sheet calcule déjà tout cela**
-  par épreuve : le site pourrait lire directement son fichier de meeting.
-- **Concours** : suivi essai par essai (barre en cours, classement provisoire), au moins en saisie
-  rapide manuelle ; à défaut, lien vers les résultats en direct.
-- **Séries → finales** : qualifiés (Q/q) et nouvelle composition, que Media Sheet sait réarranger.
-- **Recherche par dossard conservée** : un athlète engagé sur plusieurs épreuves affiche toutes
-  ses épreuves et horaires.
-- **Salle** : épreuves courtes (60 m, 60 m haies), records salle, enchaînements serrés.
-- **Deux speakers** : répartition piste / concours, avec un filtre « mes épreuves ».
+### Données préparées avant la réunion
+- Horaire complet : épreuve, catégorie, tour (série / finale / qualif), heure, lieu (piste, sautoir…),
+  mode de qualification (ex. « 3Q + 2q »).
+- Listes de départ par série (couloirs) ou ordre de passage (concours).
+- Stats par athlète : SB, PB, records, palmarès, minima. **Media Sheet calcule déjà tout cela** :
+  le site lirait directement son fichier de meeting.
 
-**Questions à trancher avant de construire :**
-- La source des horaires et startlists (Direct FFA `athle.fr/direct`, logiciel de l'organisateur ?).
-- Les résultats en direct sont-ils accessibles pendant la réunion ?
-- Téléphone, tablette ou ordinateur au micro ? (une tablette permet deux colonnes : course + concours)
-- Le stade a-t-il du réseau fiable ? (sinon tout doit être chargé avant)
+### Écrans
+1. **Bandeau horaire** affichable / masquable à la demande : liste des épreuves avec l'heure,
+   ligne « maintenant », statut (à venir, en cours, terminée), bouton **« +5 min »** pour décaler
+   la suite quand la réunion prend du retard.
+2. **Vue « Maintenant »** : épreuves proposées selon l'heure ; on en épingle 2 à 4, affichées côte à côte
+   (tablette) ou en onglets à balayer (téléphone). Choix de la série (S1, S2… finale).
+3. **Fiche course** : couloir, nom, club, SB/PB, records à battre en tête.
+   - Saisie des temps couloir par couloir avec le pavé intégré (format automatique 10"52, 1'52"30).
+   - Classement de la série calculé aussitôt ; **Q et q calculés automatiquement** série après série
+     selon la règle (places puis meilleurs temps), corrigeables d'un tap.
+   - Vue « bilan des séries » et composition de la finale.
+4. **Concours horizontaux** (longueur, triple, lancers) : grille d'essais (perf, X, –), meilleure marque,
+   **classement qui se met à jour à chaque essai** ; après 3 essais, les 8 meilleurs continuent :
+   les autres sont masqués (option) et l'ordre de passage est inversé.
+5. **Concours verticaux** (hauteur, perche) : barres successives, O / X / –, **éliminé après 3 échecs
+   consécutifs** (masqué automatiquement), classement selon la règle (barre franchie, échecs à cette
+   barre, total des échecs).
+6. **Alertes speaker** : quand une perf saisie bat le SB, le PB, la meilleure perf de l'engagement,
+   le record du meeting ou un minima → pastille « PB ! », « Record du meeting »…
+7. **Recherche par dossard** : toutes les épreuves d'un athlète, avec horaires et perfs déjà saisies.
+
+### Point technique décisif : la saisie par une deuxième personne
+Pour qu'une personne entre les perfs sur son téléphone et que le speaker les voie sur le sien,
+il faut un **petit espace de stockage en ligne partagé** (le site actuel, hébergé sur GitHub Pages,
+ne garde rien en ligne). Sans réseau, chaque appareil continue en local.
+
+### Questions à trancher avant de construire
+- Saisie par une 2e personne : oui / non (décide du stockage partagé).
+- Téléphone ou tablette au micro ?
+- Source de l'horaire et des listes de départ (Direct FFA, logiciel de l'organisateur, Media Sheet).
+- Réunion test pour le prototype (fichier Media Sheet + horaire).
