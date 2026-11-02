@@ -68,8 +68,11 @@ Pour qu'une personne entre les perfs sur son téléphone et que le speaker les v
 il faut un **petit espace de stockage en ligne partagé** (le site actuel, hébergé sur GitHub Pages,
 ne garde rien en ligne). Sans réseau, chaque appareil continue en local.
 
-### Questions à trancher avant de construire
-- Saisie par une 2e personne : oui / non (décide du stockage partagé).
-- Téléphone ou tablette au micro ?
-- Source de l'horaire et des listes de départ (Direct FFA, logiciel de l'organisateur, Media Sheet).
-- Réunion test pour le prototype (fichier Media Sheet + horaire).
+### Décisions (2 novembre 2026)
+- **Tablette en priorité**, téléphone en secours (affichage côte à côte sur tablette, onglets sur téléphone).
+- **Saisie partagée : idée gardée, pas dans la première version.** Les modifications devront
+  apparaître à l'identique chez tous les utilisateurs. Piste retenue : une **feuille Google Sheets
+  + un petit script Google (Apps Script)** servant de relais gratuit, dans le Drive d'Alexandre
+  (synchronisation en quelques secondes ; repli local sans réseau). GitHub écarté pour le direct.
+- **Projet dédié** : nouveau dépôt GitHub et projet Claude séparés de l'Ekiden.
+- Données test : fichier de meeting Media Sheet + horaire, à fournir.
